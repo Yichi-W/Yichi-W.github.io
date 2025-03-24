@@ -7,7 +7,9 @@ redirect_from:
   - /about.html
 ---
 
-Hello! I am a junior student majoring in Artificial Intelligence at Beijing University of Technology (https://www.bjut.edu.cn/). My current research interests include multimodal large language models, embodied intelligence, and AI for security applications in these two areas.
+Hello! I am currently a junior majoring in Artificial Intelligence at Beijing University of Technology (https://www.bjut.edu.cn/). My research interests include multimodal large language models, embodied intelligence, and AI for Security applications in these areas. I am actively seeking MPhil and PhD opportunities for Fall 2026. I would be very grateful for the opportunity to further discuss my background and research, so please feel free to contact me at my primary email: mstaryc02@gmail.com or at my less frequently used institutional email: wangyc2002@emails.bjut.edu.cn.
+
+
 
 A data-driven personal website
 ======
