@@ -32,7 +32,7 @@ Additionally, I am gradually posting algorithmic derivations of selected papers 
   - Integrating and synthesizing various existing methodologies to form a cohesive research framework.
 - **Project Highlight:**
   - Contributed to the paper titled:  
-    *“Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models”* presented at the 25th ICCV  
+    *[Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models](https://arxiv.org/abs/2503.11519)* presented at the 25th ICCV  
   - Key contributions included:
     - **Developing and rigorously evaluating innovative methodologies across both open-source and proprietary models.**
     - **Generating, interpreting, and refining detailed visual data representations (figures and tables) to enhance the precision of the publication.**
