@@ -7,11 +7,15 @@ redirect_from:
   - /about.html
 ---
 
-# Wang Yichi – Resume
+# About Me
 
-I am a junior majoring in **Artificial Intelligence** at [Beijing University of Technology](https://www.bjut.edu.cn/), with a strong academic record and hands-on research experience in areas including multimodal large language models, embodied intelligence, and AI security applications. I am actively seeking MPhil and PhD opportunities for Fall 2026. My goal is to contribute to innovative research and advance the field of AI through rigorous theoretical and applied work.
+Hello! I am currently a junior majoring in **Artificial Intelligence** at [Beijing University of Technology](https://www.bjut.edu.cn/). My research interests include:
 
-Please feel free to contact me at:  
+- **Multimodal Large Language Models**
+- **Embodied Intelligence**
+- **AI for Security Applications**
+
+I am actively seeking **MPhil and PhD opportunities for Fall 2026**. I would be very grateful for the opportunity to further discuss my background and research. Please feel free to contact me at:  
 - **Primary Email:** mstaryc02@gmail.com  
 - **Institutional Email:** wangyc2002@emails.bjut.edu.cn
 
@@ -28,8 +32,8 @@ Please feel free to contact me at:
   - Contributed to the paper titled:  
     *“Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models”* presented at the 25th ICCV  
   - Key contributions included:
-    - **Developing and rigorously evaluating innovative methodologies across both open-source and proprietary models, ensuring a comprehensive comparative analysis.**
-    - **Generating, interpreting, and refining detailed visual data representations (figures and tables) to enhance the clarity, reproducibility, and impact of our research findings.**
+    - **Developing and rigorously evaluating innovative methodologies across both open-source and proprietary models.**
+    - **Generating, interpreting, and refining detailed visual data representations (figures and tables) to enhance the clarity and precision of the publication.**
 
 ---
 
