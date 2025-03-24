@@ -33,7 +33,7 @@ I am actively seeking **MPhil and PhD opportunities for Fall 2026**. I would be 
     *“Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models”* presented at the 25th ICCV  
   - Key contributions included:
     - **Developing and rigorously evaluating innovative methodologies across both open-source and proprietary models.**
-    - **Generating, interpreting, and refining detailed visual data representations (figures and tables) to enhance the clarity and precision of the publication.**
+    - **Generating, interpreting, and refining detailed visual data representations (figures and tables) to enhance the precision of the publication.**
 
 ---
 
@@ -47,7 +47,7 @@ I am actively seeking **MPhil and PhD opportunities for Fall 2026**. I would be 
 
 **Scholarships:**
 
-- Awarded the **University-level Excellence in Academics Scholarship** at Beijing University of Technology in **2022** and **2024**.
+- Awarded the **University-level Excellence Scholarship** at Beijing University of Technology in **2022** and **2024**.
 
 **Key Theoretical Courses:**
 
