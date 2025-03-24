@@ -14,6 +14,7 @@ title_separator          : "-"
 name                     : &name "Yichi Wang"
 description              : &description "AI undergraduate student at BJUT, interested in multimodal LLMs and AI security. Currently preparing for Fall 2026 PhD applications."
 url                      : "https://academicpages.github.io" 
+baseurl                  : ""
 repository               : "academicpages/academicpages.github.io" 
 
 
