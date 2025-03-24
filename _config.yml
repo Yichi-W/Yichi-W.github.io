@@ -21,7 +21,7 @@ repository               : "yichi-w/yichi-w.github.io/"
 # Site Author
 author:
   # Biographic information
-  avatar: "tst.jpg"
+  avatar: "./tst.jpg"
   name: "Yichi Wang"
   bio: "Hello! I am currently preparing for the next application season in six months. If you're interested in my profile, feel free to contact me!"
   email: "mstaryc02@gmail.com"
