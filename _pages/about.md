@@ -6,7 +6,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-
+---
 # About Me
 
 Hello! I am currently a junior majoring in **Artificial Intelligence** at [Beijing University of Technology](https://www.bjut.edu.cn/). My research interests include:
