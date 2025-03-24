@@ -21,7 +21,7 @@ repository               : "academicpages/academicpages.github.io"
 # Site Author
 author:
   # Biographic information
-  avatar: "images/a9584431f6d94106745589dd77aaeb2b_1.jpg"
+  avatar: "/images/a9584431f6d94106745589dd77aaeb2b_1.jpg"
   name: "Yichi Wang"
   bio: "Hello! I am currently preparing for the next application season in six months. If you're interested in my profile, feel free to contact me!"
   email: "mstaryc02@gmail.com"
