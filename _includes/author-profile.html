@@ -114,6 +114,15 @@
       {% if author.linkedin %}
         <li><a href="https://www.linkedin.com/in/{{ author.linkedin }}"><i class="fab fa-fw fa-linkedin icon-pad-right" aria-hidden="true"></i>LinkedIn</a></li>
       {% endif %}      
+      {% if site.author.bilibili %}
+        <li>
+          <i class="fa fa-play-circle" aria-hidden="true"></i>
+          <a href="{{ site.author.bilibili }}" target="_blank">Bilibili</a>
+        </li>
+      {% endif %}
+
+
+      
       {% if author.mastodon %}
         <li><a href="{{ author.mastodon }}"><i class="fab fa-fw fa-mastodon icon-pad-right" aria-hidden="true"></i>Mastodon</a></li>
       {% endif %}
