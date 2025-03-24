@@ -7,11 +7,11 @@ redirect_from:
   - /about.html
 ---
 
-Hello! I am currently a junior majoring in Artificial Intelligence at Beijing University of Technology (https://www.bjut.edu.cn/). My research interests include multimodal large language models, embodied intelligence, and AI for Security applications in these areas. I am actively seeking MPhil and PhD opportunities for Fall 2026. I would be very grateful for the opportunity to further discuss my background and research, so please feel free to contact me at my primary email: mstaryc02@gmail.com or at my less frequently used institutional email: wangyc2002@emails.bjut.edu.cn.
+Hello! I am currently a junior majoring in Artificial Intelligence at Beijing University of Technology [https://www.bjut.edu.cn/]. My research interests include multimodal large language models, embodied intelligence, and AI for Security applications in these areas. I am actively seeking MPhil and PhD opportunities for Fall 2026. I would be very grateful for the opportunity to further discuss my background and research, so please feel free to contact me at my primary email: mstaryc02@gmail.com or at my less frequently used institutional email: wangyc2002@emails.bjut.edu.cn.
 
 
 
-A data-driven personal website
+A 标化成绩
 ======
 Like many other Jekyll-based GitHub Pages templates, Academic Pages makes you separate the website's content from its form. The content & metadata of your website are in structured markdown files, while various other files constitute the theme, specifying how to transform that content & metadata into HTML pages. You keep these various markdown (.md), YAML (.yml), HTML, and CSS files in a public GitHub repository. Each time you commit and push an update to the repository, the [GitHub pages](https://pages.github.com/) service creates static HTML pages based on these files, which are hosted on GitHub's servers free of charge.
 
