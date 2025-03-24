@@ -6,7 +6,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
----
+
 # About Me
 
 Hello! I am currently a junior majoring in **Artificial Intelligence** at [Beijing University of Technology](https://www.bjut.edu.cn/). My research interests include:
@@ -17,7 +17,9 @@ Hello! I am currently a junior majoring in **Artificial Intelligence** at [Beiji
 
 I am actively seeking **MPhil and PhD opportunities for Fall 2026**. I would be very grateful for the opportunity to further discuss my background and research. Please feel free to contact me at:  
 - **Primary Email:** mstaryc02@gmail.com  
-- **Institutional Email:** wangyc2002@emails.bjut.edu.cn
+- **Institutional Email:** wangyc2002@emails.bjut.edu.cn  
+
+Additionally, I am gradually posting algorithmic derivations of selected papers on my [Bilibili channel](https://space.bilibili.com/688302426). If you would like to learn more, feel free to visit the link.
 
 ---
 
