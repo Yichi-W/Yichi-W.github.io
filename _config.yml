@@ -9,13 +9,13 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default"
-title                    : "Your Name / Site Title"
+title                    : "Yichi Wang - Resume"
 title_separator          : "-"
-name                     : &name "Your Name"
-description              : &description "personal description"
-url                      : https://academicpages.github.io # the base hostname & protocol for your site e.g. "https://[your GitHub username].github.io"
-baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+name                     : &name "Yichi Wang"
+description              : &description "AI undergraduate student at BJUT, interested in multimodal LLMs and AI security. Currently preparing for Fall 2026 PhD applications."
+url                      : "https://academicpages.github.io" # 如果你已经部署到了自己的 GitHub Pages，请将此处替换成你的真实地址
+repository               : "academicpages/academicpages.github.io" # 如果你 fork 了这个仓库，这里改成你的用户名和仓库名，例如 "yichiwang/yichiwang.github.io"
+
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
