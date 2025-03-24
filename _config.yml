@@ -13,8 +13,8 @@ title                    : "Yichi Wang - Resume"
 title_separator          : "-"
 name                     : &name "Yichi Wang"
 description              : &description "AI undergraduate student at BJUT, interested in multimodal LLMs and AI security. Currently preparing for Fall 2026 PhD applications."
-url                      : "https://academicpages.github.io" # 如果你已经部署到了自己的 GitHub Pages，请将此处替换成你的真实地址
-repository               : "academicpages/academicpages.github.io" # 如果你 fork 了这个仓库，这里改成你的用户名和仓库名，例如 "yichiwang/yichiwang.github.io"
+url                      : "https://academicpages.github.io" 
+repository               : "academicpages/academicpages.github.io" 
 
 
 # Site Author - The following control what appear as part of the author content on the side bar.
