@@ -26,7 +26,7 @@ In 2023, I took part in the "User Growth Prediction Challenge" organized by Data
 In 2023, I participated in Datawhale's summer camp and was recognized as an outstanding participant.
 
 
-在校经历
+科研经历
 ======
 1. 22-23 星火计划
 1. Fork [this template](https://github.com/academicpages/academicpages.github.io) by clicking the "Use this template" button in the top right. 
