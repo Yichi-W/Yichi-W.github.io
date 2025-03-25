@@ -224,6 +224,15 @@ defaults:
       author_profile: true
       share: true
       comments: true
+    # _support
+  - scope:
+      path: ""
+      type: support
+    values:
+      layout: single
+      author_profile: true
+      share: true
+      comments: true
   # _portfolio
   - scope:
       path: ""
