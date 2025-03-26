@@ -45,7 +45,7 @@ Additionally, I am gradually posting algorithmic derivations of selected papers 
 
 - **Average Score:** 87.79 (with one semester's results pending)
 - **GPA:** 3.6 / 4.0  
-- **Class Rank:** Top 15%–20%
+- **Major Ranking:** Top 15%–20%
 
 **Scholarships:**
 
