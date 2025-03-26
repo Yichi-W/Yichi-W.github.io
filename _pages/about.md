@@ -25,7 +25,7 @@ Additionally, I am gradually posting algorithmic derivations of selected papers 
 
 # Research Experience
 
-**2024 – Remote Research Assistant at Hong Kong University of Science and Technology (Guangzhou)**
+**2024 – Remote Intern at Hong Kong University of Science and Technology (Guangzhou)**
 
 - **Responsibilities:**
   - Conducting extensive literature reviews and assimilating findings from multiple research papers.
