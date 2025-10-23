@@ -94,6 +94,7 @@
 
         .awards-panel {
             position: relative;
+            z-index: 2;
             background: rgba(255, 255, 255, 0.75);
             border-radius: 24px;
             padding: 36px 30px;
@@ -168,7 +169,7 @@
             height: 420px;
             transform: translateX(-50%);
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
         }
 
         .certificate-slot {
@@ -176,12 +177,12 @@
             width: 190px;
             height: 124px;
             border-radius: 16px;
-            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(148, 210, 189, 0.18));
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(148, 210, 189, 0.16));
             background-size: cover;
             background-position: center;
             border: 1px solid rgba(148, 210, 189, 0.35);
             box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
-            opacity: 0.85;
+            opacity: 0.75;
             backdrop-filter: blur(2px);
         }
 
@@ -194,13 +195,13 @@
             opacity: 0.45;
         }
 
-        .certificate-slot.slot-1 { top: 4%; left: 4%; transform: rotate(-6deg); background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(148,163,184,0.35))); }
-        .certificate-slot.slot-2 { top: -6%; left: 36%; transform: rotate(9deg); background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-3 { top: 6%; right: 6%; transform: rotate(-4deg); background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(165,180,252,0.35))); }
-        .certificate-slot.slot-4 { top: 42%; left: 10%; transform: rotate(5deg); background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-5 { top: 32%; left: 45%; transform: rotate(-7deg); background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(129,140,248,0.35))); }
-        .certificate-slot.slot-6 { top: 40%; right: 12%; transform: rotate(7deg); background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
-        .certificate-slot.slot-7 { top: 68%; left: 28%; transform: rotate(-5deg); background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
+        .certificate-slot.slot-1 { top: -8%; left: -6%; transform: rotate(-6deg); background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(148,163,184,0.35))); }
+        .certificate-slot.slot-2 { top: -12%; left: 30%; transform: rotate(9deg); background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
+        .certificate-slot.slot-3 { top: -2%; right: -4%; transform: rotate(-4deg); background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(165,180,252,0.35))); }
+        .certificate-slot.slot-4 { top: 40%; left: -4%; transform: rotate(5deg); background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
+        .certificate-slot.slot-5 { top: 30%; left: 55%; transform: rotate(-7deg); background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(129,140,248,0.35))); }
+        .certificate-slot.slot-6 { top: 38%; right: -8%; transform: rotate(12deg); background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
+        .certificate-slot.slot-7 { top: 68%; left: 62%; transform: rotate(-5deg); background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
 
         .hero-info {
             position: relative;
@@ -785,13 +786,13 @@
 
         @media (min-width: 992px) {
             .hero-info {
-                align-items: flex-start;
-                text-align: left;
+                align-items: flex-end;
+                text-align: right;
             }
 
             .hero-info .contact-info,
             .hero-info .social-links {
-                justify-content: flex-start;
+                justify-content: flex-end;
             }
         }
 
