@@ -85,6 +85,7 @@
         .header-content {
             position: relative;
             z-index: 2;
+            isolation: isolate;
         }
 
         .header .row.g-4 {
@@ -166,10 +167,10 @@
             top: 20px;
             left: 50%;
             width: min(1150px, 95%);
-            height: 420px;
+            height: 480px;
             transform: translateX(-50%);
             pointer-events: none;
-            z-index: 0;
+            z-index: -1;
         }
 
         .certificate-slot {
@@ -195,13 +196,13 @@
             opacity: 0.45;
         }
 
-        .certificate-slot.slot-1 { top: -8%; left: -6%; transform: rotate(-6deg); background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(148,163,184,0.35))); }
-        .certificate-slot.slot-2 { top: -12%; left: 30%; transform: rotate(9deg); background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-3 { top: -2%; right: -4%; transform: rotate(-4deg); background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(165,180,252,0.35))); }
-        .certificate-slot.slot-4 { top: 40%; left: -4%; transform: rotate(5deg); background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-5 { top: 30%; left: 55%; transform: rotate(-7deg); background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(129,140,248,0.35))); }
-        .certificate-slot.slot-6 { top: 38%; right: -8%; transform: rotate(12deg); background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
-        .certificate-slot.slot-7 { top: 68%; left: 62%; transform: rotate(-5deg); background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
+        .certificate-slot.slot-1 { top: 38%; left: -12%; transform: rotate(-8deg); background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(148,163,184,0.35))); }
+        .certificate-slot.slot-2 { top: 12%; left: 62%; transform: rotate(6deg); background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
+        .certificate-slot.slot-3 { top: 20%; right: -18%; transform: rotate(-5deg); background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(165,180,252,0.35))); }
+        .certificate-slot.slot-4 { top: 66%; left: -6%; transform: rotate(4deg); background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
+        .certificate-slot.slot-5 { top: 54%; left: 50%; transform: rotate(-6deg); background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(129,140,248,0.35))); }
+        .certificate-slot.slot-6 { top: 32%; right: -12%; transform: rotate(11deg); background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
+        .certificate-slot.slot-7 { top: 78%; left: 66%; transform: rotate(-4deg); background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
 
         .hero-info {
             position: relative;
