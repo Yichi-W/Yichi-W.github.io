@@ -144,17 +144,20 @@
 
         .awards-scroll {
             max-height: 280px;
-            overflow-y: auto;
+            overflow: hidden;
             padding-right: 8px;
+            position: relative;
         }
 
-        .awards-scroll::-webkit-scrollbar {
-            width: 6px;
+        .awards-loop {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            animation: awardsTicker 18s linear infinite;
         }
 
-        .awards-scroll::-webkit-scrollbar-thumb {
-            background: rgba(15, 118, 110, 0.3);
-            border-radius: 10px;
+        .awards-scroll:hover .awards-loop {
+            animation-play-state: paused;
         }
 
         .award-list li {
@@ -214,102 +217,116 @@
             z-index: 1;
         }
 
-        .hero-content {
+        .certificate-gallery {
             position: relative;
-            z-index: 3;
-            color: var(--text-dark);
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px 10px;
         }
 
-        .certificate-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: min(420px, 90%);
-            height: min(420px, 90%);
-            transform: translate(-40%, -50%);
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .certificate-ring::before {
-            content: '';
-            position: absolute;
-            inset: 20%;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(45, 212, 191, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
-            filter: blur(0.5px);
+        .certificate-field {
+            position: relative;
+            width: 100%;
+            max-width: 920px;
+            min-height: 280px;
+            margin: 0 auto;
         }
 
         .certificate-slot {
             position: absolute;
             width: 200px;
-            height: 128px;
-            border-radius: 14px;
-            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(148, 210, 189, 0.18));
+            height: 130px;
+            border-radius: 16px;
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(148, 210, 189, 0.22));
             background-size: cover;
             background-position: center;
             border: 1px solid rgba(148, 210, 189, 0.35);
-            box-shadow: 0 16px 30px rgba(15, 118, 110, 0.25);
-            opacity: 0.85;
-            backdrop-filter: blur(1.5px);
+            box-shadow: 0 18px 36px rgba(15, 118, 110, 0.22);
+            opacity: 0.9;
+            backdrop-filter: blur(2px);
         }
 
         .certificate-slot::after {
             content: '';
             position: absolute;
             inset: 10%;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px dashed rgba(15, 118, 110, 0.25);
             opacity: 0.5;
         }
 
         .certificate-slot.slot-1 {
-            top: -12%;
-            left: 48%;
-            transform: translate(-50%, -50%) rotate(-4deg);
+            top: -10%;
+            left: 6%;
+            transform: rotate(-6deg);
             background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(148, 163, 184, 0.35)));
         }
 
         .certificate-slot.slot-2 {
-            top: 22%;
-            right: -12%;
-            transform: translate(0, -50%) rotate(8deg);
+            top: -16%;
+            left: 38%;
+            transform: rotate(8deg);
             background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(96, 165, 250, 0.35)));
         }
 
         .certificate-slot.slot-3 {
-            bottom: 20%;
-            right: -8%;
-            transform: translate(0, 50%) rotate(-6deg);
+            top: -6%;
+            right: 5%;
+            transform: rotate(-4deg);
             background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(165, 180, 252, 0.35)));
         }
 
         .certificate-slot.slot-4 {
-            bottom: -12%;
-            left: 44%;
-            transform: translate(-50%, 50%) rotate(6deg);
+            top: 38%;
+            left: 12%;
+            transform: rotate(5deg);
             background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(96, 165, 250, 0.35)));
         }
 
         .certificate-slot.slot-5 {
-            bottom: 18%;
-            left: -10%;
-            transform: translate(0, 50%) rotate(-5deg);
+            top: 32%;
+            left: 46%;
+            transform: rotate(-7deg);
             background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(129, 140, 248, 0.35)));
         }
 
         .certificate-slot.slot-6 {
-            top: 26%;
-            left: -11%;
-            transform: translate(0, -50%) rotate(7deg);
+            top: 40%;
+            right: 10%;
+            transform: rotate(6deg);
             background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(94, 234, 212, 0.35)));
         }
 
         .certificate-slot.slot-7 {
-            top: -8%;
-            right: 16%;
-            transform: translate(0, -50%) rotate(-9deg);
+            top: 72%;
+            left: 30%;
+            transform: rotate(-4deg);
             background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(94, 234, 212, 0.35)));
+        }
+
+        .hero-bio {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .hero-bio .profile-img {
+            margin-bottom: 10px;
+        }
+
+        .hero-bio .subtitle {
+            margin-bottom: 12px;
+            color: rgba(15, 23, 42, 0.65);
+        }
+
+        .hero-bio .contact-info {
+            margin-bottom: 10px;
         }
 
         .profile-img {
@@ -809,8 +826,7 @@
                 grid-template-columns: 1fr;
             }
 
-            .awards-panel,
-            .hero-panel {
+            .awards-panel {
                 padding: 32px 24px;
                 text-align: center;
             }
@@ -827,30 +843,31 @@
                 max-height: none;
             }
 
-            .hero-panel::before,
-            .hero-panel::after,
-            .certificate-ring {
+            .awards-loop {
+                animation: none;
+            }
+
+            .certificate-slot {
                 display: none;
             }
         }
 
         @media (max-width: 991.98px) {
-            .certificate-ring {
-                display: none;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .contact-info {
-                justify-content: flex-start;
-            }
-
-            .social-links {
-                justify-content: flex-start;
+            .certificate-slot {
+                opacity: 0.65;
             }
         }
 
         /* Custom Animations */
+        @keyframes awardsTicker {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-50%);
+            }
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -902,14 +919,22 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="row align-items-stretch g-4">
-                    <div class="col-lg-4" data-aos="fade-right">
+                <div class="row align-items-start g-4">
+                    <div class="col-lg-5" data-aos="fade-right">
                         <div class="awards-panel animate__animated animate__fadeInLeft">
                             <div class="awards-content">
                                 <h3 class="awards-title">Full Honors</h3>
                                 <p class="awards-subtitle">Complete list of scholarships, competitions, and recognitions.</p>
                                 <div class="awards-scroll">
-                                    <ul class="award-list">
+                                    <ul class="award-list awards-loop">
+                                        <li>Academic Excellence Scholarship · University Level (3×)</li>
+                                        <li>Technological Innovation Scholarship · University Level</li>
+                                        <li>IJCAI Workshop Best Paper</li>
+                                        <li>Provincial Competition · Second Prize (2×)</li>
+                                        <li>Category-A National Competition · First Prize</li>
+                                        <li>Category-A National Competition · Third Prize</li>
+                                        <li>Datawhale Summer Camp Challenge · First Prize</li>
+                                        <li>Outstanding Student · Beijing University of Technology</li>
                                         <li>Academic Excellence Scholarship · University Level (3×)</li>
                                         <li>Technological Innovation Scholarship · University Level</li>
                                         <li>IJCAI Workshop Best Paper</li>
@@ -923,9 +948,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8" data-aos="fade-left">
-                        <div class="hero-panel animate__animated animate__fadeInRight">
-                            <div class="certificate-ring">
+                    <div class="col-lg-7" data-aos="fade-left">
+                        <div class="certificate-gallery animate__animated animate__fadeInRight">
+                            <div class="certificate-field">
                                 <div class="certificate-slot slot-1"></div>
                                 <div class="certificate-slot slot-2"></div>
                                 <div class="certificate-slot slot-3"></div>
@@ -934,36 +959,30 @@
                                 <div class="certificate-slot slot-6"></div>
                                 <div class="certificate-slot slot-7"></div>
                             </div>
-                            <div class="hero-content">
-                                <div class="row align-items-center justify-content-center text-center text-md-start g-4">
-                                    <div class="col-md-5 text-center">
-                                        <img src="avatar.jpg" alt="Yichi Wang" class="profile-img">
-                                    </div>
-                                    <div class="col-md-7 text-center text-md-start">
-                                        <h1 class="animate__animated animate__fadeInUp">Yichi Wang</h1>
-                                        <p class="subtitle animate__animated animate__fadeInUp animate__delay-1s">Research Intern & Undergraduate Student</p>
-                                        
-                                        <div class="contact-info animate__animated animate__fadeInUp animate__delay-2s">
-                                            <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="contact-item">
-                                                <i class="fas fa-envelope"></i>
-                                                wangyc2002@emails.bjut.edu.cn
-                                            </a>
-                                            <a href="mailto:mstaryc02@gmail.com" class="contact-item">
-                                                <i class="fas fa-envelope"></i>
-                                                mstaryc02@gmail.com
-                                            </a>
-                                        </div>
-                                        
-                                        <div class="social-links animate__animated animate__fadeInUp animate__delay-3s">
-                                            <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="social-btn">
-                                                <i class="fab fa-google"></i>
-                                                Google Scholar
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                    </div>
+                </div>
+                <div class="hero-bio animate__animated animate__fadeInUp">
+                    <img src="avatar.jpg" alt="Yichi Wang" class="profile-img">
+                    <h1>Yichi Wang</h1>
+                    <p class="subtitle">Research Intern & Undergraduate Student</p>
+                    
+                    <div class="contact-info">
+                        <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            wangyc2002@emails.bjut.edu.cn
+                        </a>
+                        <a href="mailto:mstaryc02@gmail.com" class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            mstaryc02@gmail.com
+                        </a>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="social-btn">
+                            <i class="fab fa-google"></i>
+                            Google Scholar
+                        </a>
                     </div>
                 </div>
             </div>
