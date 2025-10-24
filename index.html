@@ -945,6 +945,20 @@
             font-size: 0.85rem;
             white-space: nowrap;
         }
+        /* make two track chips equal width */
+        .award-meta--tracks {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+        }
+        .award-meta--tracks .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -976,7 +990,7 @@
                                             <span class="award-tag">Provincial</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>RoboCup China Open</strong> — Advanced Robotic Vision, Second Prize (team lead; first‑listed)</div>
-                                                <div class="award-meta">
+                                                <div class="award-meta award-meta--tracks">
                                                     <span class="meta-chip">tracks: 3D Recognition</span>
                                                     <span class="meta-chip">tracks: Industrial Metrology</span>
                                                 </div>
