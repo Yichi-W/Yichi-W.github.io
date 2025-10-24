@@ -34,7 +34,7 @@
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
             /* Horizontal tweak for the certificate cluster; negative moves further right */
-            --cert-cloud-shift-x: -40px;
+            --cert-cloud-shift-x: -80px;
         }
 
         * {
@@ -250,9 +250,11 @@
         .award-preview .preview-figure { margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); }
         .award-preview .preview-figure img {
             display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* show full certificate without裁切 */
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;      /* keep aspect ratio */
+            height: auto;     /* avoid vertical crop */
+            object-fit: contain; /* safeguard */
         }
         .award-preview .preview-info {
             padding: 10px 12px;
