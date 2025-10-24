@@ -164,17 +164,17 @@
 
         .certificate-cloud {
             position: relative;
-            width: clamp(320px, 35vw, 420px);
-            height: clamp(320px, 36vw, 440px);
+            width: clamp(280px, 30vw, 360px);
+            height: clamp(340px, 32vw, 420px);
             pointer-events: none;
             z-index: 2;
-            margin-inline: auto;
+            margin: 12px auto 0;
         }
 
         .certificate-slot {
             position: absolute;
             display: block;
-            width: clamp(150px, 15vw, 190px);
+            width: clamp(140px, 14vw, 180px);
             margin: 0;
             border-radius: 18px;
             padding: 12px;
@@ -202,13 +202,13 @@
             opacity: 0.35;
         }
 
-        .certificate-slot.slot-1 { top: 4%; left: 4%; transform: rotate(-6deg); }
-        .certificate-slot.slot-2 { top: 12%; right: 6%; transform: rotate(5deg); }
-        .certificate-slot.slot-3 { top: 44%; right: -2%; transform: rotate(-4deg); }
-        .certificate-slot.slot-4 { bottom: 8%; left: -6%; transform: rotate(3deg); }
-        .certificate-slot.slot-5 { top: 52%; left: 34%; transform: rotate(-5deg); }
-        .certificate-slot.slot-6 { top: 0%; right: 32%; transform: rotate(9deg); }
-        .certificate-slot.slot-7 { bottom: -2%; right: 16%; transform: rotate(-3deg); }
+        .certificate-slot.slot-1 { top: 6%; left: 0%; transform: rotate(-6deg); }
+        .certificate-slot.slot-2 { top: 2%; right: -6%; transform: rotate(4deg); }
+        .certificate-slot.slot-3 { top: 58%; right: 6%; transform: rotate(-3deg); }
+        .certificate-slot.slot-4 { bottom: 2%; left: 12%; transform: rotate(4deg); }
+        .certificate-slot.slot-5 { top: 46%; left: 38%; transform: rotate(-4deg); }
+        .certificate-slot.slot-6 { top: 20%; right: 36%; transform: rotate(7deg); }
+        .certificate-slot.slot-7 { bottom: -6%; right: 22%; transform: rotate(-2deg); }
 
         .hero-layout {
             position: relative;
@@ -217,7 +217,7 @@
             flex-direction: column;
             flex-wrap: wrap;
             align-items: center;
-            gap: 32px;
+            gap: 36px;
         }
 
         .hero-info {
@@ -797,8 +797,8 @@
 
         @media (max-width: 991.98px) {
             .certificate-cloud {
-                width: clamp(280px, 70vw, 360px);
-                height: clamp(300px, 70vw, 380px);
+                width: clamp(240px, 65vw, 320px);
+                height: clamp(260px, 65vw, 360px);
             }
 
             .certificate-slot {
@@ -821,16 +821,23 @@
                 flex-direction: row;
                 flex-wrap: nowrap;
                 align-items: flex-start;
-                justify-content: space-between;
-                gap: 48px;
+                justify-content: flex-start;
+                gap: 36px;
             }
 
             .hero-layout .certificate-cloud {
                 margin-inline: 0;
+                margin-top: 18px;
+            }
+
+            .hero-info {
+                flex: 1 1 320px;
+                min-width: 320px;
+                max-width: 360px;
             }
 
             .certificate-cloud {
-                flex: 0 0 clamp(320px, 35vw, 420px);
+                flex: 0 0 clamp(280px, 30vw, 360px);
             }
         }
 
