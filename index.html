@@ -163,53 +163,62 @@
         }
 
         .certificate-cloud {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            width: min(1150px, 95%);
-            height: 480px;
-            transform: translateX(-50%);
+            position: relative;
+            width: clamp(320px, 35vw, 420px);
+            height: clamp(320px, 36vw, 440px);
             pointer-events: none;
-            z-index: -1;
-            --cert-image-1: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/21-22scholarship.jpg');
-            --cert-image-2: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/23-24scholarship.jpg');
-            --cert-image-3: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/outstanding.jpg');
-            --cert-image-4: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/3D_Province.jpg');
-            --cert-image-5: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/Industry_Province.jpg');
-            --cert-image-6: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/IJCAI_Bestpaper.jpg');
-            --cert-image-7: linear-gradient(135deg, rgba(255, 255, 255, 0.58), rgba(148, 210, 189, 0.22)), url('0_image/datawhale.jpg');
+            z-index: 2;
+            margin-inline: auto;
         }
 
         .certificate-slot {
             position: absolute;
-            width: 190px;
-            height: 124px;
-            border-radius: 16px;
-            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(148, 210, 189, 0.16));
-            background-size: cover;
-            background-position: center;
+            display: block;
+            width: clamp(150px, 15vw, 190px);
+            margin: 0;
+            border-radius: 18px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(148, 210, 189, 0.16));
             border: 1px solid rgba(148, 210, 189, 0.35);
             box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
-            opacity: 0.75;
-            backdrop-filter: blur(2px);
+            opacity: 0.85;
+            backdrop-filter: blur(3px);
+        }
+
+        .certificate-slot img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 24px rgba(15, 118, 110, 0.16);
         }
 
         .certificate-slot::after {
             content: '';
             position: absolute;
-            inset: 10%;
+            inset: 8px;
             border-radius: 10px;
             border: 1px dashed rgba(15, 118, 110, 0.2);
-            opacity: 0.45;
+            opacity: 0.35;
         }
 
-        .certificate-slot.slot-1 { top: 38%; left: -12%; transform: rotate(-8deg); background-image: var(--cert-image-1, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(148,163,184,0.35))); }
-        .certificate-slot.slot-2 { top: 12%; left: 62%; transform: rotate(6deg); background-image: var(--cert-image-2, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-3 { top: 20%; right: -18%; transform: rotate(-5deg); background-image: var(--cert-image-3, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(165,180,252,0.35))); }
-        .certificate-slot.slot-4 { top: 66%; left: -6%; transform: rotate(4deg); background-image: var(--cert-image-4, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(96,165,250,0.35))); }
-        .certificate-slot.slot-5 { top: 54%; left: 50%; transform: rotate(-6deg); background-image: var(--cert-image-5, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(129,140,248,0.35))); }
-        .certificate-slot.slot-6 { top: 32%; right: -12%; transform: rotate(11deg); background-image: var(--cert-image-6, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
-        .certificate-slot.slot-7 { top: 78%; left: 66%; transform: rotate(-4deg); background-image: var(--cert-image-7, linear-gradient(135deg, rgba(255,255,255,0.45), rgba(94,234,212,0.35))); }
+        .certificate-slot.slot-1 { top: 4%; left: 4%; transform: rotate(-6deg); }
+        .certificate-slot.slot-2 { top: 12%; right: 6%; transform: rotate(5deg); }
+        .certificate-slot.slot-3 { top: 44%; right: -2%; transform: rotate(-4deg); }
+        .certificate-slot.slot-4 { bottom: 8%; left: -6%; transform: rotate(3deg); }
+        .certificate-slot.slot-5 { top: 52%; left: 34%; transform: rotate(-5deg); }
+        .certificate-slot.slot-6 { top: 0%; right: 32%; transform: rotate(9deg); }
+        .certificate-slot.slot-7 { bottom: -2%; right: 16%; transform: rotate(-3deg); }
+
+        .hero-layout {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 32px;
+        }
 
         .hero-info {
             position: relative;
@@ -787,6 +796,11 @@
         }
 
         @media (max-width: 991.98px) {
+            .certificate-cloud {
+                width: clamp(280px, 70vw, 360px);
+                height: clamp(300px, 70vw, 380px);
+            }
+
             .certificate-slot {
                 opacity: 0.65;
             }
@@ -801,6 +815,22 @@
             .hero-info .contact-info,
             .hero-info .social-links {
                 justify-content: flex-start;
+            }
+
+            .hero-layout {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 48px;
+            }
+
+            .hero-layout .certificate-cloud {
+                margin-inline: 0;
+            }
+
+            .certificate-cloud {
+                flex: 0 0 clamp(320px, 35vw, 420px);
             }
         }
 
@@ -865,15 +895,6 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <div class="certificate-cloud">
-                    <span class="certificate-slot slot-1"></span>
-                    <span class="certificate-slot slot-2"></span>
-                    <span class="certificate-slot slot-3"></span>
-                    <span class="certificate-slot slot-4"></span>
-                    <span class="certificate-slot slot-5"></span>
-                    <span class="certificate-slot slot-6"></span>
-                    <span class="certificate-slot slot-7"></span>
-                </div>
                 <div class="row align-items-start g-4">
                     <div class="col-lg-5" data-aos="fade-right">
                         <div class="awards-panel animate__animated animate__fadeInLeft">
@@ -902,27 +923,52 @@
                         </div>
                     </div>
                     <div class="col-lg-7" data-aos="fade-left">
-                        <div class="hero-info animate__animated animate__fadeInRight">
-                            <img src="avatar.jpg" alt="Yichi Wang" class="profile-img">
-                            <h1>Yichi Wang</h1>
-                            <p class="subtitle">Research Intern & Undergraduate Student</p>
-                            
-                            <div class="contact-info">
-                                <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    wangyc2002@emails.bjut.edu.cn
-                                </a>
-                                <a href="mailto:mstaryc02@gmail.com" class="contact-item">
-                                    <i class="fas fa-envelope"></i>
-                                    mstaryc02@gmail.com
-                                </a>
+                        <div class="hero-layout animate__animated animate__fadeInRight">
+                            <div class="hero-info">
+                                <img src="avatar.jpg" alt="Yichi Wang" class="profile-img">
+                                <h1>Yichi Wang</h1>
+                                <p class="subtitle">Research Intern & Undergraduate Student</p>
+
+                                <div class="contact-info">
+                                    <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="contact-item">
+                                        <i class="fas fa-envelope"></i>
+                                        wangyc2002@emails.bjut.edu.cn
+                                    </a>
+                                    <a href="mailto:mstaryc02@gmail.com" class="contact-item">
+                                        <i class="fas fa-envelope"></i>
+                                        mstaryc02@gmail.com
+                                    </a>
+                                </div>
+
+                                <div class="social-links">
+                                    <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="social-btn">
+                                        <i class="fab fa-google"></i>
+                                        Google Scholar
+                                    </a>
+                                </div>
                             </div>
-                            
-                            <div class="social-links">
-                                <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="social-btn">
-                                    <i class="fab fa-google"></i>
-                                    Google Scholar
-                                </a>
+                            <div class="certificate-cloud">
+                                <figure class="certificate-slot slot-1">
+                                    <img src="0_image/21-22scholarship.jpg" alt="Academic Excellence Scholarship (BJUT, 2021-2022)">
+                                </figure>
+                                <figure class="certificate-slot slot-2">
+                                    <img src="0_image/23-24scholarship.jpg" alt="Academic Excellence Scholarship (BJUT, 2023-2024)">
+                                </figure>
+                                <figure class="certificate-slot slot-3">
+                                    <img src="0_image/outstanding.jpg" alt="Outstanding Students' Project (BJUT)">
+                                </figure>
+                                <figure class="certificate-slot slot-4">
+                                    <img src="0_image/3D_Province.jpg" alt="RoboCup China Open - Advanced Robotic Vision (3D Recognition) Second Prize">
+                                </figure>
+                                <figure class="certificate-slot slot-5">
+                                    <img src="0_image/Industry_Province.jpg" alt="RoboCup China Open - Advanced Robotic Vision (Industrial Metrology) Second Prize">
+                                </figure>
+                                <figure class="certificate-slot slot-6">
+                                    <img src="0_image/IJCAI_Bestpaper.jpg" alt="IJCAI Deepfake Workshop - Best Student Paper Award">
+                                </figure>
+                                <figure class="certificate-slot slot-7">
+                                    <img src="0_image/datawhale.jpg" alt="Datawhale Competition - First Prize">
+                                </figure>
                             </div>
                         </div>
                     </div>
