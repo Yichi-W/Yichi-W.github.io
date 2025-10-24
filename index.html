@@ -896,6 +896,44 @@
         .animate-fadeInRight {
             animation: fadeInRight 0.8s ease-out;
         }
+
+        /* --- Tidy awards layout additions --- */
+        .award-item {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            column-gap: 12px;
+            row-gap: 4px;
+            align-items: start;
+        }
+        .award-item::before { display: none; }
+        .award-tag {
+            align-self: start;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: rgba(15, 118, 110, 0.08);
+            border: 1px solid rgba(15, 118, 110, 0.20);
+            border-radius: 10px;
+            padding: 3px 8px;
+            white-space: nowrap;
+        }
+        .award-text { display: flex; flex-direction: column; gap: 4px; }
+        .award-main { font-weight: 600; }
+        .award-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            color: rgba(15, 23, 42, 0.65);
+            font-weight: 500;
+        }
+        .meta-chip {
+            background: rgba(15, 118, 110, 0.08);
+            border: 1px solid rgba(15, 118, 110, 0.20);
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
     </style>
 </head>
 <body>
@@ -911,28 +949,54 @@
                                 <p class="awards-subtitle">Complete list of scholarships, competitions, and recognitions.</p>
                                 <div class="awards-scroll">
                                     <ul class="award-list awards-loop">
-                                        <li>
-                                            <strong>[International]</strong>
-                                            IJCAI Deepfake Workshop — Best Student Paper Award
-                                            <em>(co-first author; listed 3rd)</em>
+                                        <li class="award-item">
+                                            <span class="award-tag">International</span>
+                                            <div class="award-text">
+                                                <div class="award-main"><strong>IJCAI Deepfake Workshop</strong> — Best Student Paper Award</div>
+                                                <div class="award-meta">
+                                                    <span class="meta-chip">co‑first author</span>
+                                                    <span class="meta-chip">listed 3rd</span>
+                                                </div>
+                                            </div>
                                         </li>
-                                        <li>
-                                            <strong>[National]</strong>
-                                            Datawhale Competition — First Prize
-                                            <strong><em>(team lead; first-listed)</em></strong>
+                                        <li class="award-item">
+                                            <span class="award-tag">National</span>
+                                            <div class="award-text">
+                                                <div class="award-main"><strong>Datawhale Competition</strong> — First Prize</div>
+                                                <div class="award-meta">
+                                                    <span class="meta-chip">team lead</span>
+                                                    <span class="meta-chip">first‑listed</span>
+                                                </div>
+                                            </div>
                                         </li>
-                                        <li>
-                                            [Provincial]
-                                            RoboCup China Open — Advanced Robotic Vision, Second Prize
-                                            (tracks: 3D Recognition; Industrial Metrology; <strong>team lead; first-listed</strong>)
+                                        <li class="award-item">
+                                            <span class="award-tag">Provincial</span>
+                                            <div class="award-text">
+                                                <div class="award-main"><strong>RoboCup China Open</strong> — Advanced Robotic Vision, Second Prize</div>
+                                                <div class="award-meta">
+                                                    <span class="meta-chip">tracks: 3D Recognition</span>
+                                                    <span class="meta-chip">Industrial Metrology</span>
+                                                    <span class="meta-chip">team lead</span>
+                                                    <span class="meta-chip">first‑listed</span>
+                                                </div>
+                                            </div>
                                         </li>
-                                        <li>
-                                            <strong>[University]</strong>
-                                            Academic Excellence Scholarship, Beijing University of Technology (BJUT) — 2021–2022, 2023–2024, 2024–2025
+                                        <li class="award-item">
+                                            <span class="award-tag">University</span>
+                                            <div class="award-text">
+                                                <div class="award-main"><strong>Academic Excellence Scholarship</strong>, Beijing University of Technology (BJUT)</div>
+                                                <div class="award-meta">
+                                                    <span class="meta-chip">2021–2022</span>
+                                                    <span class="meta-chip">2023–2024</span>
+                                                    <span class="meta-chip">2024–2025</span>
+                                                </div>
+                                            </div>
                                         </li>
-                                        <li>
-                                            <strong>[University]</strong>
-                                            “Outstanding Students’ Project” — Certificate of Completion, Beijing University of Technology (BJUT)
+                                        <li class="award-item">
+                                            <span class="award-tag">University</span>
+                                            <div class="award-text">
+                                                <div class="award-main"><strong>“Outstanding Students’ Project”</strong> — Certificate of Completion, Beijing University of Technology (BJUT)</div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
