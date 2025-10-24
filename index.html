@@ -928,7 +928,8 @@
             white-space: nowrap;
             text-align: center;
         }
-        .award-text { display: flex; flex-direction: column; gap: 4px; }
+        /* Allow the right column to shrink and wrap instead of overflowing */
+        .award-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
         .award-main { font-weight: 600; }
         .award-meta {
             display: flex;
@@ -948,7 +949,8 @@
         /* make two track chips equal width */
         .award-meta--tracks {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            /* Let each chip column shrink if needed to avoid horizontal overflow */
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
             gap: 10px;
             width: 100%;
         }
@@ -958,6 +960,10 @@
             justify-content: center;
             width: 100%;
             text-align: center;
+            /* Permit wrapping inside chips so long labels don't get clipped */
+            white-space: normal;
+            line-height: 1.2;
+            word-break: break-word;
         }
     </style>
 </head>
