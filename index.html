@@ -34,7 +34,7 @@
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
             /* Horizontal tweak for the certificate cluster; negative moves further right */
-            --cert-cloud-shift-x: -160px;
+            --cert-cloud-shift-x: -80px;
         }
 
         * {
@@ -217,26 +217,28 @@
 
         /* Hover preview for awards — appears on the right */
         .award-preview {
-            position: fixed; /* detach from layout so it never gets clipped */
-            top: clamp(24px, 10vh, 120px);
-            right: clamp(16px, 4vw, 48px);
-            /* Let the image decide the box size within safe viewport bounds */
-            width: auto;
-            height: auto;
-            max-width: min(88vw, 900px);
-            max-height: 84vh;
+            position: absolute;
+            top: 16px;
+            right: calc(clamp(6px, 1.5vw, 16px) + var(--cert-cloud-shift-x));
+            /* Wider canvas so description can sit at the right */
+            width: clamp(420px, 46vw, 640px);
+            height: clamp(220px, 35vh, 360px);
             border-radius: 16px;
             background: rgba(255, 255, 255, 0.86);
             border: 1px solid rgba(15, 118, 110, 0.18);
             box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
             backdrop-filter: blur(4px);
-            z-index: 1000; /* above all header pieces */
-            overflow: visible; /* ensure no internal cropping */
+            z-index: 3;
+            overflow: hidden;
             transform: translateY(8px);
             opacity: 0;
-            pointer-events: auto; /* allow hovering to prevent auto-hide */
+            pointer-events: none;
             transition: opacity 160ms ease, transform 180ms ease;
-            display: block;
+            display: grid;
+            /* image on the left, small info box on the right */
+            grid-template-columns: minmax(0, 1fr) minmax(160px, 36%);
+            grid-template-rows: 1fr;
+            align-items: stretch;
         }
 
         .award-preview.is-visible {
@@ -245,44 +247,24 @@
             pointer-events: auto;
         }
 
-        .award-preview .preview-figure { margin: 0; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); }
+        .award-preview .preview-figure { margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); }
         .award-preview .preview-figure img {
             display: block;
-            max-width: min(88vw, 900px);
-            max-height: 84vh;
+            max-width: 100%;
+            max-height: 100%;
             width: auto;      /* keep aspect ratio */
             height: auto;     /* avoid vertical crop */
-            object-fit: contain; /* show the entire certificate */
+            object-fit: contain; /* safeguard */
         }
         .award-preview .preview-info {
-            position: absolute; /* place outside the image area to never block content */
-            top: 10px;
-            right: -12px;
-            transform: translateX(100%);
             padding: 10px 12px;
-            margin: 0;
-            width: 260px;
-            background: rgba(255, 255, 255, 0.9);
+            margin: 10px;
+            background: rgba(15, 118, 110, 0.06);
             border: 1px solid rgba(15, 118, 110, 0.20);
             border-radius: 12px;
-            box-shadow: 0 10px 20px rgba(15, 118, 110, 0.15);
-            max-height: 72vh;
+            align-self: start; /* small box at the top-right */
+            max-height: calc(100% - 20px);
             overflow: auto;
-        }
-        /* If screen is narrow, fall back to floating box inside the image bounds */
-        @media (max-width: 1200px) {
-            .award-preview {
-                right: clamp(8px, 2vw, 24px);
-                max-width: 92vw;
-                max-height: 82vh;
-            }
-            .award-preview .preview-figure img { max-width: 92vw; max-height: 82vh; }
-            .award-preview .preview-info {
-                right: 10px;
-                transform: none;
-                width: min(40vw, 260px);
-                background: rgba(255,255,255,0.82);
-            }
         }
         .award-preview .preview-title {
             font-weight: 700;
