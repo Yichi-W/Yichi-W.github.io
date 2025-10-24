@@ -220,23 +220,23 @@
             position: absolute;
             top: 16px;
             right: calc(clamp(6px, 1.5vw, 16px) + var(--cert-cloud-shift-x));
-            /* Wider canvas so description can sit at the right */
-            width: clamp(420px, 46vw, 640px);
-            height: clamp(220px, 35vh, 360px);
+            /* Make the preview canvas a bit larger and remove clipping */
+            width: clamp(460px, 50vw, 720px);
+            height: clamp(260px, 42vh, 420px);
             border-radius: 16px;
             background: rgba(255, 255, 255, 0.86);
             border: 1px solid rgba(15, 118, 110, 0.18);
             box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
             backdrop-filter: blur(4px);
-            z-index: 3;
-            overflow: hidden;
+            z-index: 50; /* ensure it sits above neighboring panels */
+            overflow: visible; /* avoid cutting the certificate image */
             transform: translateY(8px);
             opacity: 0;
             pointer-events: none;
             transition: opacity 160ms ease, transform 180ms ease;
             display: grid;
-            /* image on the left, small info box on the right */
-            grid-template-columns: minmax(0, 1fr) minmax(160px, 36%);
+            /* Use a single visual layer for the image; info becomes a floating card */
+            grid-template-columns: 1fr;
             grid-template-rows: 1fr;
             align-items: stretch;
         }
@@ -247,22 +247,26 @@
             pointer-events: auto;
         }
 
-        .award-preview .preview-figure { margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); }
+        .award-preview .preview-figure { margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); grid-column: 1 / -1; grid-row: 1 / -1; }
         .award-preview .preview-figure img {
             display: block;
             max-width: 100%;
             max-height: 100%;
             width: auto;      /* keep aspect ratio */
             height: auto;     /* avoid vertical crop */
-            object-fit: contain; /* safeguard */
+            object-fit: contain; /* show the entire certificate */
         }
         .award-preview .preview-info {
+            position: absolute; /* float above without shrinking the image */
+            top: 10px;
+            right: 10px;
             padding: 10px 12px;
-            margin: 10px;
-            background: rgba(15, 118, 110, 0.06);
+            margin: 0;
+            width: min(38%, 280px);
+            background: rgba(255, 255, 255, 0.78);
             border: 1px solid rgba(15, 118, 110, 0.20);
             border-radius: 12px;
-            align-self: start; /* small box at the top-right */
+            box-shadow: 0 10px 20px rgba(15, 118, 110, 0.15);
             max-height: calc(100% - 20px);
             overflow: auto;
         }
