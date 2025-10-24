@@ -215,6 +215,51 @@
         .certificate-slot.slot-6 { top: 20%; right: 36%; transform: rotate(7deg); }
         .certificate-slot.slot-7 { bottom: -6%; right: 22%; transform: rotate(-2deg); }
 
+        /* Hover preview for awards — appears on the right */
+        .award-preview {
+            position: absolute;
+            top: 16px;
+            right: calc(clamp(6px, 1.5vw, 16px) + var(--cert-cloud-shift-x));
+            width: clamp(260px, 28vw, 360px);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.86);
+            border: 1px solid rgba(15, 118, 110, 0.18);
+            box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
+            backdrop-filter: blur(4px);
+            z-index: 3;
+            overflow: hidden;
+            transform: translateY(8px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 160ms ease, transform 180ms ease;
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+
+        .award-preview.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .award-preview .preview-figure { margin: 0; }
+        .award-preview .preview-figure img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .award-preview .preview-info { padding: 10px 12px 12px; }
+        .award-preview .preview-title {
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+        .award-preview .preview-desc {
+            color: rgba(15, 23, 42, 0.65);
+            font-weight: 500;
+            line-height: 1.35;
+        }
+
         .hero-layout {
             position: relative; /* anchor for absolute certificate cloud */
             z-index: 2;
@@ -799,6 +844,9 @@
                 display: none;
             }
 
+            /* Hide hover preview on small screens */
+            .award-preview { display: none !important; }
+
             /* On small screens, let the tag size to content */
             .award-list li.award-item {
                 grid-template-columns: max-content 1fr;
@@ -982,19 +1030,19 @@
                                 <p class="awards-subtitle">Complete list of scholarships, competitions, and recognitions.</p>
                                 <div class="awards-scroll">
                                     <ul class="award-list awards-loop">
-                                        <li class="award-item">
+                                        <li class="award-item" data-preview-img="0_image/IJCAI_Bestpaper.jpg">
                                             <span class="award-tag">International</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>IJCAI Deepfake Workshop</strong> — Best Student Paper Award (co‑first author; listed 3rd)</div>
                                             </div>
                                         </li>
-                                        <li class="award-item">
+                                        <li class="award-item" data-preview-img="0_image/datawhale.jpg">
                                             <span class="award-tag">National</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>Datawhale Competition</strong> — First Prize (team lead; first‑listed)</div>
                                             </div>
                                         </li>
-                                        <li class="award-item">
+                                        <li class="award-item" data-preview-img="0_image/3D_Province.jpg">
                                             <span class="award-tag">Provincial</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>RoboCup China Open</strong> — Advanced Robotic Vision, Second Prize (team lead; first‑listed)</div>
@@ -1004,7 +1052,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="award-item">
+                                        <li class="award-item" data-preview-img="0_image/21-22scholarship.jpg">
                                             <span class="award-tag">University</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>Academic Excellence Scholarship</strong>, Beijing University of Technology (BJUT)</div>
@@ -1015,7 +1063,7 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="award-item">
+                                        <li class="award-item" data-preview-img="0_image/outstanding.jpg">
                                             <span class="award-tag">University</span>
                                             <div class="award-text">
                                                 <div class="award-main"><strong>“Outstanding Students’ Project”</strong> — Certificate of Completion, Beijing University of Technology (BJUT)</div>
@@ -1074,6 +1122,16 @@
                                     <img src="0_image/datawhale.jpg" alt="Datawhale Competition - First Prize">
                                 </figure>
                             </div>
+                            <!-- Hover preview panel (populates on award hover) -->
+                            <aside class="award-preview" id="awardPreview" aria-hidden="true">
+                                <figure class="preview-figure">
+                                    <img data-role="img" src="0_image/IJCAI_Bestpaper.jpg" alt="Award preview">
+                                </figure>
+                                <div class="preview-info">
+                                    <div class="preview-title" data-role="title">Hover an honor</div>
+                                    <div class="preview-desc" data-role="desc"></div>
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>
@@ -1517,6 +1575,56 @@
         if (gpaCard) {
             observer.observe(gpaCard);
         }
+
+        // Hover preview for awards in header
+        (function() {
+            const preview = document.getElementById('awardPreview');
+            if (!preview) return;
+            const imgEl = preview.querySelector('[data-role="img"]');
+            const titleEl = preview.querySelector('[data-role="title"]');
+            const descEl = preview.querySelector('[data-role="desc"]');
+            const panel = document.querySelector('.awards-panel');
+            const items = document.querySelectorAll('.award-list .award-item');
+            let hideTimer;
+
+            function showForItem(li) {
+                if (!li) return;
+                clearTimeout(hideTimer);
+                const img = li.getAttribute('data-preview-img');
+                if (img) {
+                    imgEl.src = img;
+                    const alt = (li.querySelector('.award-main')?.textContent || 'Award').trim();
+                    imgEl.alt = alt;
+                }
+                const main = (li.querySelector('.award-main')?.textContent || '').trim();
+                const chips = Array.from(li.querySelectorAll('.meta-chip')).map(c => c.textContent.trim()).join(' · ');
+                titleEl.textContent = main || (li.querySelector('.award-tag')?.textContent.trim() || 'Award');
+                if (chips) {
+                    descEl.textContent = chips;
+                    descEl.style.display = '';
+                } else {
+                    descEl.textContent = '';
+                    descEl.style.display = 'none';
+                }
+                preview.classList.add('is-visible');
+                preview.setAttribute('aria-hidden', 'false');
+            }
+
+            function scheduleHide() {
+                clearTimeout(hideTimer);
+                hideTimer = setTimeout(() => {
+                    preview.classList.remove('is-visible');
+                    preview.setAttribute('aria-hidden', 'true');
+                }, 200);
+            }
+
+            items.forEach(li => {
+                li.addEventListener('mouseenter', () => showForItem(li));
+                li.addEventListener('focusin', () => showForItem(li));
+            });
+            panel?.addEventListener('mouseleave', scheduleHide);
+            panel?.addEventListener('focusout', scheduleHide);
+        })();
 
         // Add CSS for ripple effect
         $('<style>')
