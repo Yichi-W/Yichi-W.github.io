@@ -34,7 +34,7 @@
             --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
             /* Horizontal tweak for the certificate cluster; negative moves further right */
-            --cert-cloud-shift-x: -24px;
+            --cert-cloud-shift-x: -40px;
         }
 
         * {
@@ -220,7 +220,9 @@
             position: absolute;
             top: 16px;
             right: calc(clamp(6px, 1.5vw, 16px) + var(--cert-cloud-shift-x));
-            width: clamp(260px, 28vw, 360px);
+            /* Wider canvas so description can sit at the right */
+            width: clamp(420px, 46vw, 640px);
+            height: clamp(220px, 35vh, 360px);
             border-radius: 16px;
             background: rgba(255, 255, 255, 0.86);
             border: 1px solid rgba(15, 118, 110, 0.18);
@@ -233,7 +235,10 @@
             pointer-events: none;
             transition: opacity 160ms ease, transform 180ms ease;
             display: grid;
-            grid-template-rows: auto 1fr;
+            /* image on the left, small info box on the right */
+            grid-template-columns: minmax(0, 1fr) minmax(160px, 36%);
+            grid-template-rows: 1fr;
+            align-items: stretch;
         }
 
         .award-preview.is-visible {
@@ -242,13 +247,23 @@
             pointer-events: auto;
         }
 
-        .award-preview .preview-figure { margin: 0; }
+        .award-preview .preview-figure { margin: 0; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(15,118,110,0.05); }
         .award-preview .preview-figure img {
             display: block;
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain; /* show full certificate without裁切 */
         }
-        .award-preview .preview-info { padding: 10px 12px 12px; }
+        .award-preview .preview-info {
+            padding: 10px 12px;
+            margin: 10px;
+            background: rgba(15, 118, 110, 0.06);
+            border: 1px solid rgba(15, 118, 110, 0.20);
+            border-radius: 12px;
+            align-self: start; /* small box at the top-right */
+            max-height: calc(100% - 20px);
+            overflow: auto;
+        }
         .award-preview .preview-title {
             font-weight: 700;
             color: var(--text-dark);
@@ -1624,6 +1639,8 @@
             });
             panel?.addEventListener('mouseleave', scheduleHide);
             panel?.addEventListener('focusout', scheduleHide);
+            preview.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+            preview.addEventListener('mouseleave', scheduleHide);
         })();
 
         // Add CSS for ripple effect
