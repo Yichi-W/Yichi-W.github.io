@@ -456,74 +456,79 @@
             background: var(--bg-white);
         }
 
-        /* Bio hover lines (requested interaction) */
-        .about-bio {
-            position: relative;
-            overflow: visible; /* allow lines to extend outside */
-        }
-
-        .bio-lines {
+        /* Bio hover rays (radial 3-way at 120°) */
+        .about-bio { position: relative; overflow: visible; z-index: 2; }
+        .about-bio .bio-hub {
             position: absolute;
+            left: 50%;
             top: 50%;
-            left: 100%; /* start from card's right edge */
-            transform: translateY(-50%);
-            width: 340px; /* overall reach of lines */
-            height: 1px; /* container height doesn't matter */
-            pointer-events: none; /* decoration only */
+            transform: translate(-50%, -50%);
+            width: 0; height: 0;
+            pointer-events: none;
+            z-index: 5;
         }
 
-        .bio-line {
+        .bio-ray { /* a single ray container */
             position: absolute;
-            left: 0;
-            width: 300px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(15,118,110,0.0) 0%, rgba(15,118,110,0.75) 40%, rgba(15,118,110,0.95) 100%);
+            left: 0; top: 0;
+            width: 520px; /* ray length */
+            height: 0;
+            transform-origin: 0 0; /* rotate around hub */
+            transition: transform 320ms ease-out;
+            filter: drop-shadow(0 4px 10px rgba(15,118,110,0.15));
+        }
+        /* base line for ray */
+        .bio-ray::before {
+            content: '';
+            position: absolute;
+            left: 0; top: -1px;
+            width: 100%; height: 2px;
             border-radius: 2px;
-            transform: scaleX(0);
-            transform-origin: left center;
-            transition: transform 260ms ease-out 80ms;
-            filter: drop-shadow(0 2px 4px rgba(15,118,110,0.15));
+            background: linear-gradient(90deg, rgba(15,118,110,0.0) 0%, rgba(15,118,110,0.7) 35%, rgba(15,118,110,0.95) 100%);
         }
 
-        .bio-line.line-1 { top: -68px; }
-        .bio-line.line-2 { top: 0px; }
-        .bio-line.line-3 { top: 68px; }
+        /* three directions: -30°, 90°, 210° (120° spaced) */
+        .bio-ray.ray-1 { transform: rotate(-30deg) scaleX(0); }
+        .bio-ray.ray-2 { transform: rotate(90deg)  scaleX(0); }
+        .bio-ray.ray-3 { transform: rotate(210deg) scaleX(0); }
+        .about-bio:hover .bio-ray.ray-1 { transform: rotate(-30deg) scaleX(1); }
+        .about-bio:hover .bio-ray.ray-2 { transform: rotate(90deg)  scaleX(1); }
+        .about-bio:hover .bio-ray.ray-3 { transform: rotate(210deg) scaleX(1); }
 
-        .about-bio:hover .bio-line {
-            transform: scaleX(1);
-        }
-
+        /* media cards on the ray */
         .bio-media {
             position: absolute;
-            top: -42px; /* vertically center around the line */
-            width: 140px;
-            height: 84px;
-            border-radius: 10px;
+            top: -62px; /* half of height to center on line */
+            width: 220px;
+            height: 124px;
+            border-radius: 14px;
             overflow: hidden;
-            background: rgba(255,255,255,0.9);
-            box-shadow: 0 10px 20px rgba(15,118,110,0.15);
+            background: rgba(255,255,255,0.95);
             border: 1px solid rgba(15,118,110,0.18);
-            transform: translateX(-12px) scale(0.9);
+            box-shadow: 0 14px 28px rgba(15,118,110,0.18);
+            z-index: 6;
             opacity: 0;
-            transition: opacity 200ms ease, transform 260ms ease;
+            transform: scale(0.92);
+            transition: opacity 220ms ease 80ms, transform 280ms ease;
         }
+        .bio-media video, .bio-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .bio-media video, .bio-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        /* spacing along the ray */
+        .bio-media.pos-a { left: 260px; }
+        .bio-media.pos-b { left: 410px; }
 
-        /* Positions for the two media along each line */
-        .bio-media.pos-a { left: 120px; }
-        .bio-media.pos-b { left: 250px; }
+        /* counter-rotate media to keep upright */
+        .bio-ray.ray-1 .bio-media { transform: rotate(30deg) scale(0.92); }
+        .bio-ray.ray-2 .bio-media { transform: rotate(-90deg) scale(0.92); }
+        .bio-ray.ray-3 .bio-media { transform: rotate(-210deg) scale(0.92); }
+        .about-bio:hover .bio-ray .bio-media { opacity: 1; }
+        .about-bio:hover .bio-ray.ray-1 .bio-media { transform: rotate(30deg) scale(1); }
+        .about-bio:hover .bio-ray.ray-2 .bio-media { transform: rotate(-90deg) scale(1); }
+        .about-bio:hover .bio-ray.ray-3 .bio-media { transform: rotate(-210deg) scale(1); }
 
-        .about-bio:hover .bio-media { opacity: 1; transform: translateX(0) scale(1); }
-
-        /* Hide the decoration on small screens */
+        /* Hide decoration on small screens */
         @media (max-width: 991.98px) {
-            .bio-lines, .bio-media, .bio-line { display: none; }
+            .bio-hub, .bio-ray, .bio-media { display: none; }
         }
 
         .research-interests {
@@ -1227,36 +1232,37 @@
                         <p class="lead text-center mb-4">
                             I am an undergraduate student from Beijing University of Technology & a research intern at Hong Kong University of Science and Technology (Guangzhou). My current research approach primarily employs interpretability methods to focus on innovative research in multimodal systems, embodied intelligence, and AI for Security. Through my work, I hope to enable us not only to drive AI models but also to understand why models make certain decisions, which helps us build more white-box AI systems.
                         </p>
-                        <!-- Hover lines with media, sourced from 0_video/group0..2 -->
-                        <div class="bio-lines" aria-hidden="true">
-                            <!-- Line 1: group0 -->
-                            <span class="bio-line line-1"></span>
-                            <figure class="bio-media pos-a">
-                                <!-- group0 main -->
-                                <video src="0_video/group0.mp4" muted loop playsinline preload="metadata"></video>
-                            </figure>
-                            <figure class="bio-media pos-b">
-                                <!-- group0 secondary -->
-                                <img src="0_video/group0_1.png" alt="group0 preview">
-                            </figure>
+                        <!-- Hover rays with media, sourced from 0_video/group0..2 -->
+                        <div class="bio-hub" aria-hidden="true">
+                            <!-- Ray 1: -30deg, group0 -->
+                            <div class="bio-ray ray-1">
+                                <figure class="bio-media pos-a">
+                                    <video src="0_video/group0.mp4" muted loop playsinline preload="metadata"></video>
+                                </figure>
+                                <figure class="bio-media pos-b">
+                                    <img src="0_video/group0_1.png" alt="group0 preview">
+                                </figure>
+                            </div>
 
-                            <!-- Line 2: group1 -->
-                            <span class="bio-line line-2"></span>
-                            <figure class="bio-media pos-a" style="top:-42px;">
-                                <video src="0_video/group1.mp4" muted loop playsinline preload="metadata"></video>
-                            </figure>
-                            <figure class="bio-media pos-b" style="top:-42px;">
-                                <video src="0_video/group1_1.mp4" muted loop playsinline preload="metadata"></video>
-                            </figure>
+                            <!-- Ray 2: 90deg, group1 -->
+                            <div class="bio-ray ray-2">
+                                <figure class="bio-media pos-a">
+                                    <video src="0_video/group1.mp4" muted loop playsinline preload="metadata"></video>
+                                </figure>
+                                <figure class="bio-media pos-b">
+                                    <video src="0_video/group1_1.mp4" muted loop playsinline preload="metadata"></video>
+                                </figure>
+                            </div>
 
-                            <!-- Line 3: group2 -->
-                            <span class="bio-line line-3"></span>
-                            <figure class="bio-media pos-a">
-                                <img src="0_video/group2.png" alt="group2 image">
-                            </figure>
-                            <figure class="bio-media pos-b">
-                                <img src="0_video/group2_1.png" alt="group2 image">
-                            </figure>
+                            <!-- Ray 3: 210deg, group2 -->
+                            <div class="bio-ray ray-3">
+                                <figure class="bio-media pos-a">
+                                    <img src="0_video/group2.png" alt="group2 image">
+                                </figure>
+                                <figure class="bio-media pos-b">
+                                    <img src="0_video/group2_1.png" alt="group2 image">
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1752,7 +1758,7 @@
         (function(){
             const bio = document.querySelector('.about-bio');
             if (!bio) return;
-            const vids = bio.querySelectorAll('.bio-lines video');
+            const vids = bio.querySelectorAll('.bio-hub video, .bio-lines video');
             function playAll(){ vids.forEach(v => { try { v.play(); } catch(e){} }); }
             function pauseAll(){ vids.forEach(v => { try { v.pause(); v.currentTime = 0; } catch(e){} }); }
             bio.addEventListener('mouseenter', playAll);
