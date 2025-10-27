@@ -1247,10 +1247,11 @@
                             <!-- Ray 2: 90deg, group1 -->
                             <div class="bio-ray ray-2">
                                 <figure class="bio-media pos-a">
-                                    <video src="0_video/group1.mp4" muted playsinline loop autoplay preload="auto"></video>
+                                    <video src="0_video/group1.mp4" autoplay muted playsinline webkit-playsinline loop preload="auto"></video>
                                 </figure>
                                 <figure class="bio-media pos-b">
-                                    <video src="0_video/group1_1.mp4" muted playsinline loop autoplay preload="auto"></video>
+                                    <video src="0_video/group1_1.mp4" autoplay muted playsinline webkit-playsinline loop preload="auto"></video>
+
                                 </figure>
                             </div>
 
@@ -1754,27 +1755,45 @@
             `)
             .appendTo('head');
 
-        // Play/pause bio preview videos on hover
-        (function(){
-            const bio = document.querySelector('.about-bio');
-            if (!bio) return;
-            const vids = bio.querySelectorAll('.bio-hub video, .bio-lines video');
-            // ensure attributes for autoplay policies
-            vids.forEach(v => {
-                v.muted = true; v.loop = true; v.playsInline = true; v.setAttribute('playsinline',''); v.setAttribute('muted',''); v.preload = 'auto';
-            });
-            function playAll(){
-                vids.forEach(v => {
-                    const p = v.play();
-                    if (p && typeof p.catch === 'function') p.catch(()=>{});
-                });
+        // Play/pause bio preview videos on hover (force preload + warm decode)
+document.addEventListener('DOMContentLoaded', function () {
+    const bio = document.querySelector('.about-bio');
+    if (!bio) return;
+
+    const vids = bio.querySelectorAll('.bio-hub video');
+
+    // 统一属性并强制加载
+    vids.forEach(v => {
+        v.muted = true;
+        v.setAttribute('muted', '');
+        v.setAttribute('playsinline', '');
+        v.setAttribute('webkit-playsinline', '');
+        v.setAttribute('preload', 'auto');
+        v.load(); // 触发网络请求
+
+        // 热身：解码首帧，悬停时即可秒播
+        const warm = () => {
+            const p = v.play();
+            if (p && typeof p.then === 'function') {
+                p.then(() => { try { v.pause(); } catch (e) {} }).catch(() => {});
+            } else {
+                try { v.play(); v.pause(); } catch (e) {}
             }
-            function pauseAll(){ vids.forEach(v => { try { v.pause(); /* keep frame */ } catch(e){} }); }
-            bio.addEventListener('mouseenter', playAll);
-            bio.addEventListener('mouseleave', pauseAll);
-            // hint the browser to decode a bit early
-            setTimeout(playAll, 300); setTimeout(pauseAll, 600);
-        })();
+        };
+        if (v.readyState >= 2) {
+            warm();
+        } else {
+            v.addEventListener('loadeddata', warm, { once: true });
+        }
+    });
+
+    // 悬停播放/移出暂停
+    const playAll = () => vids.forEach(v => { v.play().catch(() => {}); });
+    const pauseAll = () => vids.forEach(v => { try { v.pause(); } catch (e) {} });
+
+    bio.addEventListener('mouseenter', playAll);
+    bio.addEventListener('mouseleave', pauseAll);
+});
     </script>
 </body>
 </html>
