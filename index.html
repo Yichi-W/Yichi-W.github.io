@@ -1,1799 +1,718 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yichi Wang - Research Intern</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
-    <!-- AOS (Animate On Scroll) -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-color: #2c5aa0;
-            --secondary-color: #1e3a6f;
-            --accent-color: #ff6b6b;
-            --text-dark: #2c3e50;
-            --text-light: #7f8c8d;
-            --bg-light: #f8f9fa;
-            --bg-white: #ffffff;
-            --gradient-bg: linear-gradient(135deg, #2c5aa0 0%, #5a8fd8 100%);
-            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-            /* Horizontal tweak for the certificate cluster; negative moves further right */
-            --cert-cloud-shift-x: -24px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            overflow-x: hidden;
-        }
-
-        /* Header Styles */
-        .header {
-            background: linear-gradient(135deg, #ecfdf3 0%, #d4f7e5 45%, #c3eedb 100%);
-            color: white;
-            padding: 60px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            inset: -20% -10%;
-            background: radial-gradient(circle at 20% 15%, rgba(34, 197, 94, 0.32), transparent 60%),
-                        radial-gradient(circle at 80% 15%, rgba(16, 185, 129, 0.28), transparent 55%),
-                        radial-gradient(circle at 50% 80%, rgba(59, 130, 246, 0.15), transparent 65%);
-            opacity: 0.85;
-            transform: rotate(-1.5deg);
-        }
-
-        .header::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(170deg, rgba(15, 118, 110, 0.18), transparent 65%);
-            mix-blend-mode: multiply;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-60px); }
-        }
-
-        .header-content {
-            position: relative;
-            z-index: 2;
-            isolation: isolate;
-        }
-
-        .header .row.g-4 {
-            --bs-gutter-x: 2rem;
-            --bs-gutter-y: 2rem;
-        }
-
-        .awards-panel {
-            position: relative;
-            z-index: 2;
-            background: rgba(255, 255, 255, 0.75);
-            border-radius: 24px;
-            padding: 36px 30px;
-            color: var(--text-dark);
-            box-shadow: 0 20px 45px rgba(15, 118, 110, 0.12);
-            overflow: hidden;
-        }
-
-        .awards-panel::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.2) 100%);
-            opacity: 0.85;
-            pointer-events: none;
-        }
-
-        .awards-content {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .awards-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0;
-            color: var(--text-dark);
-        }
-
-        .awards-subtitle {
-            font-size: 1rem;
-            color: rgba(15, 23, 42, 0.55);
-            margin-bottom: 0;
-        }
-
-        .award-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .awards-scroll {
-            max-height: 280px;
-            overflow: hidden;
-            padding-right: 8px;
-            position: relative;
-        }
-
-        .awards-loop {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            animation: awardsTicker 18s linear infinite;
-        }
-
-        .awards-scroll:hover .awards-loop {
-            animation-play-state: paused;
-        }
-
-        .certificate-cloud {
-            /* Sink certificates into background and remove layout impact */
-            position: absolute;
-            top: 8px;
-            right: calc(clamp(0px, 2vw, 24px) + var(--cert-cloud-shift-x));
-            width: clamp(280px, 34vw, 420px);
-            height: clamp(340px, 36vw, 500px);
-            pointer-events: none;
-            z-index: 1; /* behind text blocks */
-            margin: 0;
-        }
-
-        .certificate-slot {
-            position: absolute;
-            display: block;
-            width: clamp(140px, 14vw, 180px);
-            margin: 0;
-            border-radius: 18px;
-            padding: 12px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(148, 210, 189, 0.16));
-            border: 1px solid rgba(148, 210, 189, 0.35);
-            box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
-            opacity: 0.85;
-            backdrop-filter: blur(3px);
-        }
-
-        .certificate-slot img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 12px;
-            box-shadow: 0 10px 24px rgba(15, 118, 110, 0.16);
-        }
-
-        .certificate-slot::after {
-            content: '';
-            position: absolute;
-            inset: 8px;
-            border-radius: 10px;
-            border: 1px dashed rgba(15, 118, 110, 0.2);
-            opacity: 0.35;
-        }
-
-        .certificate-slot.slot-1 { top: 6%; left: 0%; transform: rotate(-6deg); }
-        .certificate-slot.slot-2 { top: 2%; right: -6%; transform: rotate(4deg); }
-        .certificate-slot.slot-3 { top: 58%; right: 6%; transform: rotate(-3deg); }
-        .certificate-slot.slot-4 { bottom: 2%; left: 12%; transform: rotate(4deg); }
-        .certificate-slot.slot-5 { top: 46%; left: 38%; transform: rotate(-4deg); }
-        .certificate-slot.slot-6 { top: 20%; right: 36%; transform: rotate(7deg); }
-        .certificate-slot.slot-7 { bottom: -6%; right: 22%; transform: rotate(-2deg); }
-
-        /* Hover preview for awards — appears on the right */
-        .award-preview {
-            position: absolute;
-            top: 16px;
-            right: calc(clamp(6px, 1.5vw, 16px) + var(--cert-cloud-shift-x));
-            width: clamp(260px, 28vw, 360px);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.86);
-            border: 1px solid rgba(15, 118, 110, 0.18);
-            box-shadow: 0 18px 34px rgba(15, 118, 110, 0.18);
-            backdrop-filter: blur(4px);
-            z-index: 3;
-            overflow: hidden;
-            transform: translateY(8px);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 160ms ease, transform 180ms ease;
-            display: grid;
-            grid-template-rows: auto 1fr;
-        }
-
-        .award-preview.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .award-preview .preview-figure { margin: 0; }
-        .award-preview .preview-figure img {
-            display: block;
-            width: 100%;
-            height: auto;
-        }
-        .award-preview .preview-info { padding: 10px 12px 12px; }
-        .award-preview .preview-title {
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-        .award-preview .preview-desc {
-            color: rgba(15, 23, 42, 0.65);
-            font-weight: 500;
-            line-height: 1.35;
-        }
-
-        .hero-layout {
-            position: relative; /* anchor for absolute certificate cloud */
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 36px;
-        }
-
-        .hero-info {
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            color: var(--text-dark);
-            align-items: center;
-            text-align: center;
-        }
-
-        .hero-info .profile-img {
-            width: 170px;
-            height: 170px;
-            border-width: 4px;
-        }
-
-        .hero-info h1 {
-            margin-bottom: 0;
-        }
-
-        .hero-info .subtitle {
-            margin-bottom: 6px;
-            color: rgba(15, 23, 42, 0.65);
-        }
-
-        .hero-info .contact-info {
-            margin-bottom: 10px;
-        }
-
-        .award-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            font-weight: 500;
-            line-height: 1.5;
-            color: rgba(15, 23, 42, 0.85);
-        }
-
-        .award-list li::before {
-            content: '\f091';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            color: rgba(15, 118, 110, 0.85);
-            font-size: 1.1rem;
-            margin-top: 2px;
-        }
-
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid rgba(45, 212, 191, 0.25);
-            object-fit: cover;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-        }
-
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            color: var(--text-dark);
-        }
-
-        .header .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            color: rgba(15, 23, 42, 0.65);
-        }
-
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: rgba(15, 23, 42, 0.75);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            color: rgba(15, 23, 42, 0.95);
-            transform: translateY(-2px);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 24px;
-            background: rgba(45, 212, 191, 0.18);
-            color: var(--text-dark);
-            text-decoration: none;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(45, 212, 191, 0.32);
-            color: var(--text-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.25);
-        }
-
-        /* Section Styles */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 20px;
-            color: var(--text-dark);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-light);
-            font-size: 1.2rem;
-            margin-bottom: 60px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Card Styles */
-        .card-modern {
-            background: var(--bg-white);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            height: 100%;
-        }
-
-        .card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* About Section */
-        .about-section {
-            background: var(--bg-white);
-        }
-
-        /* Bio hover rays (radial 3-way at 120°) */
-        .about-bio { position: relative; overflow: visible; z-index: 2; }
-        .about-bio .bio-hub {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 0; height: 0;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .bio-ray { /* a single ray container */
-            position: absolute;
-            left: 0; top: 0;
-            width: 520px; /* ray length */
-            height: 0;
-            transform-origin: 0 0; /* rotate around hub */
-            transition: transform 320ms ease-out;
-            filter: drop-shadow(0 4px 10px rgba(15,118,110,0.15));
-        }
-        /* base line for ray */
-        .bio-ray::before {
-            content: '';
-            position: absolute;
-            left: 0; top: -1px;
-            width: 100%; height: 2px;
-            border-radius: 2px;
-            background: linear-gradient(90deg, rgba(15,118,110,0.0) 0%, rgba(15,118,110,0.7) 35%, rgba(15,118,110,0.95) 100%);
-        }
-
-        /* three directions: -30°, 90°, 210° (120° spaced) */
-        .bio-ray.ray-1 { transform: rotate(-30deg) scaleX(0); }
-        .bio-ray.ray-2 { transform: rotate(90deg)  scaleX(0); }
-        .bio-ray.ray-3 { transform: rotate(210deg) scaleX(0); }
-        .about-bio:hover .bio-ray.ray-1 { transform: rotate(-30deg) scaleX(1); }
-        .about-bio:hover .bio-ray.ray-2 { transform: rotate(90deg)  scaleX(1); }
-        .about-bio:hover .bio-ray.ray-3 { transform: rotate(210deg) scaleX(1); }
-
-        /* media cards on the ray */
-        .bio-media {
-            position: absolute;
-            top: -62px; /* half of height to center on line */
-            width: 220px;
-            height: 124px;
-            border-radius: 14px;
-            overflow: hidden;
-            background: rgba(255,255,255,0.95);
-            border: 1px solid rgba(15,118,110,0.18);
-            box-shadow: 0 14px 28px rgba(15,118,110,0.18);
-            z-index: 6;
-            opacity: 0;
-            transform: scale(0.92);
-            transition: opacity 220ms ease 80ms, transform 280ms ease;
-        }
-        .bio-media video, .bio-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        /* spacing along the ray */
-        .bio-media.pos-a { left: 260px; }
-        .bio-media.pos-b { left: 410px; }
-
-        /* counter-rotate media to keep upright */
-        .bio-ray.ray-1 .bio-media { transform: rotate(30deg) scale(0.92); }
-        .bio-ray.ray-2 .bio-media { transform: rotate(-90deg) scale(0.92); }
-        .bio-ray.ray-3 .bio-media { transform: rotate(-210deg) scale(0.92); }
-        .about-bio:hover .bio-ray .bio-media { opacity: 1; }
-        .about-bio:hover .bio-ray.ray-1 .bio-media { transform: rotate(30deg) scale(1); }
-        .about-bio:hover .bio-ray.ray-2 .bio-media { transform: rotate(-90deg) scale(1); }
-        .about-bio:hover .bio-ray.ray-3 .bio-media { transform: rotate(-210deg) scale(1); }
-
-        /* Hide decoration on small screens */
-        @media (max-width: 991.98px) {
-            .bio-hub, .bio-ray, .bio-media { display: none; }
-        }
-
-        .research-interests {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .interest-card {
-            background: var(--bg-light);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .interest-card:hover {
-            background: var(--bg-white);
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .interest-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        /* Education Section */
-        .education-card {
-            background: var(--gradient-bg);
-            color: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .education-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></g></svg>') repeat;
-            animation: float 30s infinite linear;
-        }
-
-        .education-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .gpa-highlight {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50px;
-            padding: 15px 30px;
-            display: inline-block;
-            margin-top: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        /* Publications Section */
-        .publications-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .publication-card {
-            background: var(--bg-white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .publication-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-color);
-        }
-
-        .publication-image {
-            width: 100%;
-            height: 200px;
-            background: var(--gradient-bg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .publication-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="10" cy="10" r="1"/></g></g></svg>') repeat;
-        }
-
-        .publication-content {
-            padding: 25px;
-        }
-
-        .publication-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            background: var(--accent-color);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .publication-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .publication-venue {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        .publication-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .pub-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 8px 16px;
-            background: var(--bg-light);
-            color: var(--primary-color);
-            text-decoration: none;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .pub-link:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Demo Section */
-        .demo-section {
-            background: var(--bg-white);
-            padding: 80px 0;
-        }
-
-        .demo-container {
-            background: var(--gradient-bg);
-            border-radius: 20px;
-            padding: 60px;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .demo-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></g></svg>') repeat;
-            animation: float 25s infinite linear;
-        }
-
-        .demo-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .demo-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 18px 40px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            margin-top: 30px;
-        }
-
-        .demo-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-card {
-            background: var(--bg-white);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .skill-card:hover {
-            border-color: var(--primary-color);
-            transform: translateY(-3px);
-        }
-
-        .skill-icon {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .skill-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .skill-description {
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* Awards Section */
-        .awards-section {
-            background: var(--bg-white);
-        }
-
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .award-card {
-            background: var(--bg-light);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .award-card:hover {
-            background: var(--bg-white);
-            border-color: var(--accent-color);
-            transform: translateY(-3px);
-        }
-
-        .award-icon {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-        }
-
-        .award-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .award-description {
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
-        }
-
-        .footer-link {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: white;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .header .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .contact-info {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .section-title {
-                font-size: 2.5rem;
-            }
-            
-            .publications-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .awards-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .awards-panel {
-                padding: 32px 24px;
-                text-align: center;
-            }
-
-            .award-list li {
-                justify-content: center;
-            }
-
-            .award-list li::before {
-                display: none;
-            }
-
-            .awards-scroll {
-                max-height: none;
-            }
-
-            .awards-loop {
-                animation: none;
-            }
-
-            .certificate-cloud {
-                display: none;
-            }
-
-            .certificate-slot {
-                display: none;
-            }
-
-            /* Hide hover preview on small screens */
-            .award-preview { display: none !important; }
-
-            /* On small screens, let the tag size to content */
-            .award-list li.award-item {
-                grid-template-columns: max-content 1fr;
-            }
-            .award-tag { width: auto; }
-        }
-
-        @media (max-width: 991.98px) {
-            .certificate-cloud {
-                width: clamp(240px, 65vw, 320px);
-                height: clamp(260px, 65vw, 360px);
-            }
-
-            .certificate-slot {
-                opacity: 0.65;
-            }
-        }
-
-        @media (min-width: 992px) {
-            .hero-info {
-                align-items: flex-start;
-                text-align: left;
-            }
-
-            .hero-info .contact-info,
-            .hero-info .social-links {
-                justify-content: flex-start;
-            }
-
-            .hero-layout {
-                flex-direction: row;
-                flex-wrap: nowrap;
-                align-items: flex-start;
-                justify-content: flex-start;
-                gap: 36px;
-            }
-
-            .hero-layout .certificate-cloud {
-                top: 0;
-                right: calc(clamp(0px, 2vw, 24px) + var(--cert-cloud-shift-x));
-            }
-
-            .hero-info {
-                flex: 1 1 420px;
-                min-width: 360px;
-                max-width: 520px; /* give more room so subtitle stays on one line */
-            }
-
-            /* width & height for absolute overlay already set above */
-        }
-
-        /* Custom Animations */
-        @keyframes awardsTicker {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(-50%);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .animate-fadeInLeft {
-            animation: fadeInLeft 0.8s ease-out;
-        }
-
-        .animate-fadeInRight {
-            animation: fadeInRight 0.8s ease-out;
-        }
-
-        /* --- Tidy awards layout additions --- */
-        .award-list li.award-item {
-            display: grid; /* override base flex */
-            grid-template-columns: var(--award-tag-width, 148px) 1fr; /* uniform tag column */
-            column-gap: 14px;
-            row-gap: 4px;
-            align-items: start;
-        }
-        .award-list li.award-item::before { display: none; }
-        .award-tag {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            align-self: start;
-            width: 100%; /* fill fixed grid column */
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            background: rgba(15, 118, 110, 0.08);
-            border: 1px solid rgba(15, 118, 110, 0.20);
-            border-radius: 10px;
-            padding: 4px 10px;
-            white-space: nowrap;
-            text-align: center;
-        }
-        /* Allow the right column to shrink and wrap instead of overflowing */
-        .award-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-        .award-main { font-weight: 600; }
-        .award-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            color: rgba(15, 23, 42, 0.65);
-            font-weight: 500;
-        }
-        .meta-chip {
-            background: rgba(15, 118, 110, 0.08);
-            border: 1px solid rgba(15, 118, 110, 0.20);
-            border-radius: 999px;
-            padding: 2px 8px;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-        /* make two track chips equal width */
-        .award-meta--tracks {
-            display: grid;
-            /* Let each chip column shrink if needed to avoid horizontal overflow */
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-            gap: 10px;
-            width: 100%;
-        }
-        .award-meta--tracks .meta-chip {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            text-align: center;
-            /* Permit wrapping inside chips so long labels don't get clipped */
-            white-space: normal;
-            line-height: 1.2;
-            word-break: break-word;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
 <body>
-    <!-- Header Section -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="row align-items-start g-4">
-                    <div class="col-lg-5" data-aos="fade-right">
-                        <div class="awards-panel animate__animated animate__fadeInLeft">
-                            <div class="awards-content">
-                                <h3 class="awards-title">Full Honors</h3>
-                                <p class="awards-subtitle">Complete list of scholarships, competitions, and recognitions.</p>
-                                <div class="awards-scroll">
-                                    <ul class="award-list awards-loop">
-                                        <li class="award-item" data-preview-img="0_image/IJCAI_Bestpaper.jpg">
-                                            <span class="award-tag">International</span>
-                                            <div class="award-text">
-                                                <div class="award-main"><strong>IJCAI Deepfake Workshop</strong> — Best Student Paper Award (co‑first author; listed 3rd)</div>
-                                            </div>
-                                        </li>
-                                        <li class="award-item" data-preview-img="0_image/datawhale.jpg">
-                                            <span class="award-tag">National</span>
-                                            <div class="award-text">
-                                                <div class="award-main"><strong>Datawhale Competition</strong> — First Prize (team lead; first‑listed)</div>
-                                            </div>
-                                        </li>
-                                        <li class="award-item" data-preview-img="0_image/3D_Province.jpg">
-                                            <span class="award-tag">Provincial</span>
-                                            <div class="award-text">
-                                                <div class="award-main"><strong>RoboCup China Open</strong> — Advanced Robotic Vision, Second Prize (team lead; first‑listed)</div>
-                                                <div class="award-meta award-meta--tracks">
-                                                    <span class="meta-chip">tracks: 3D Recognition</span>
-                                                    <span class="meta-chip">tracks: Industrial Metrology</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="award-item" data-preview-img="0_image/21-22scholarship.jpg">
-                                            <span class="award-tag">University</span>
-                                            <div class="award-text">
-                                                <div class="award-main"><strong>Academic Excellence Scholarship</strong>, Beijing University of Technology (BJUT)</div>
-                                                <div class="award-meta">
-                                                    <span class="meta-chip">2021–2022</span>
-                                                    <span class="meta-chip">2023–2024</span>
-                                                    <span class="meta-chip">2024–2025</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="award-item" data-preview-img="0_image/outstanding.jpg">
-                                            <span class="award-tag">University</span>
-                                            <div class="award-text">
-                                                <div class="award-main"><strong>“Outstanding Students’ Project”</strong> — Certificate of Completion, Beijing University of Technology (BJUT)</div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-7" data-aos="fade-left">
-                        <div class="hero-layout animate__animated animate__fadeInRight">
-                            <div class="hero-info">
-                                <img src="avatar.jpg" alt="Yichi Wang" class="profile-img">
-                                <h1>Yichi Wang</h1>
-                                <p class="subtitle">Research Intern & Undergraduate Student</p>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#f4f1ea; --paper-2:#faf8f3; --ink:#1a1714; --ink-2:#6f685d; --ink-3:#a9a08d; --line:#ddd6c7; --accent:#7a2c2c; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper)}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+  ::selection{background:var(--accent);color:#f4f1ea}
+  .reveal-armed [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal-armed [data-reveal].is-visible{opacity:1;transform:none}
+  .nav-link{transition:color .25s}
+  .nav-link .nl-dash{transition:width .25s,background .25s}
+  .nav-link:hover{color:var(--ink)}
+  .nav-link.is-active{color:var(--accent)}
+  .nav-link.is-active .nl-dash{width:28px;background:var(--accent)}
+  .nav-link.is-active .nl-num{color:var(--accent)}
+  .rmap .edge{transition:opacity .3s,stroke .3s,stroke-width .3s}
+  .rmap .nodeg{cursor:pointer;transition:opacity .3s}
+  .rmap.has-active .nodeg:not(.is-active){opacity:.18}
+  .rmap.has-active .edge:not(.is-active){opacity:.07}
+  .rmap .nodeg .pill{transition:stroke .3s,stroke-width .3s}
+  .rmap .nodeg.is-active .pill{stroke:var(--accent);stroke-width:1.7}
+  .rmap .edge.is-active{stroke:var(--accent);stroke-width:1.8;opacity:1}
+  .rmap .nodeg:focus{outline:none}
+  .rmap .nodeg:focus-visible .pill{stroke:var(--accent);stroke-width:1.7}
+  .filter-chip{transition:background .2s,color .2s,border-color .2s}
+  .filter-chip:hover{border-color:var(--ink-2)}
+  .filter-chip.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .pub{transition:opacity .4s}
+  .teaser{transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+  .teaser:hover{transform:translateY(-3px)}
+  .cta-link{transition:color .2s,border-color .2s}
+  .cta-link:hover{color:var(--accent);border-color:var(--accent)}
+  .award-row .cert-btn{transition:transform .3s,filter .3s}
+  .award-row .cert-btn:hover{transform:translateY(-2px)}
+  .news-item{transition:background .25s}
+  .news-item:hover{background:color-mix(in oklab,var(--ink) 4%,transparent)}
+  @keyframes pulseGlow{0%{box-shadow:0 0 0 0 color-mix(in oklab,var(--accent) 50%,transparent)}100%{box-shadow:0 0 0 16px transparent}}
+  .pulse-target{animation:pulseGlow 1.5s ease-out 1}
+  .lb{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;padding:clamp(16px,4vw,52px);background:color-mix(in oklab,var(--ink) 90%,transparent);backdrop-filter:blur(5px)}
+  .lb.is-open{display:flex}
+  .lb-btn{position:absolute;color:#f4f1ea;opacity:.6;transition:opacity .2s;font-family:'Newsreader',serif}
+  .lb-btn:hover{opacity:1}
+  @media (max-width:980px){
+    .shell{grid-template-columns:1fr !important;gap:0 !important}
+    .side{position:static !important;height:auto !important;overflow:visible !important;border-right:none !important;border-bottom:1px solid var(--line);padding:30px 0 26px !important}
+    .side-nav{display:none !important}
+    .pub{grid-template-columns:1fr !important}
+    .teaser{max-width:420px}
+  }
+  @media (max-width:560px){ .news-item{grid-template-columns:1fr !important;gap:4px !important} }
+  @media (prefers-reduced-motion:reduce){
+    .reveal-armed [data-reveal]{transition:none;opacity:1;transform:none}
+    .pulse-target{animation:none}
+    .teaser:hover{transform:none}
+  }
+</style>
+</helmet>
+<template id="__bundler_thumbnail"><svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><rect width="512" height="512" fill="#7a2c2c"/><g stroke="#f4f1ea" stroke-width="11" fill="none" stroke-linecap="round"><path d="M186 198 L336 158 M186 198 L336 254 M186 314 L336 254 M186 314 L336 350"/></g><g fill="#f4f1ea"><circle cx="178" cy="198" r="27"/><circle cx="178" cy="314" r="27"/><circle cx="344" cy="158" r="20"/><circle cx="344" cy="254" r="20"/><circle cx="344" cy="350" r="20"/></g></svg></template>
+<div id="yw-root" style="font-family:'Newsreader',Georgia,serif;color:var(--ink);background:var(--paper);min-height:100vh;-webkit-font-smoothing:antialiased">
+  <div class="shell" style="display:grid;grid-template-columns:250px minmax(0,1fr);gap:clamp(40px,6vw,86px);max-width:1240px;margin:0 auto;padding:0 clamp(22px,5vw,64px)">
 
-                                <div class="contact-info">
-                                    <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="contact-item">
-                                        <i class="fas fa-envelope"></i>
-                                        wangyc2002@emails.bjut.edu.cn
-                                    </a>
-                                    <a href="mailto:mstaryc02@gmail.com" class="contact-item">
-                                        <i class="fas fa-envelope"></i>
-                                        mstaryc02@gmail.com
-                                    </a>
-                                </div>
-
-                                <div class="social-links">
-                                    <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="social-btn">
-                                        <i class="fab fa-google"></i>
-                                        Google Scholar
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="certificate-cloud">
-                                <figure class="certificate-slot slot-1">
-                                    <img src="0_image/21-22scholarship.jpg" alt="Academic Excellence Scholarship (BJUT, 2021-2022)">
-                                </figure>
-                                <figure class="certificate-slot slot-2">
-                                    <img src="0_image/23-24scholarship.jpg" alt="Academic Excellence Scholarship (BJUT, 2023-2024)">
-                                </figure>
-                                <figure class="certificate-slot slot-3">
-                                    <img src="0_image/outstanding.jpg" alt="Outstanding Students' Project (BJUT)">
-                                </figure>
-                                <figure class="certificate-slot slot-4">
-                                    <img src="0_image/3D_Province.jpg" alt="RoboCup China Open - Advanced Robotic Vision (3D Recognition) Second Prize">
-                                </figure>
-                                <figure class="certificate-slot slot-5">
-                                    <img src="0_image/Industry_Province.jpg" alt="RoboCup China Open - Advanced Robotic Vision (Industrial Metrology) Second Prize">
-                                </figure>
-                                <figure class="certificate-slot slot-6">
-                                    <img src="0_image/IJCAI_Bestpaper.jpg" alt="IJCAI Deepfake Workshop - Best Student Paper Award">
-                                </figure>
-                                <figure class="certificate-slot slot-7">
-                                    <img src="0_image/datawhale.jpg" alt="Datawhale Competition - First Prize">
-                                </figure>
-                            </div>
-                            <!-- Hover preview panel (populates on award hover) -->
-                            <aside class="award-preview" id="awardPreview" aria-hidden="true">
-                                <figure class="preview-figure">
-                                    <img data-role="img" src="0_image/IJCAI_Bestpaper.jpg" alt="Award preview">
-                                </figure>
-                                <div class="preview-info">
-                                    <div class="preview-title" data-role="title">Hover an honor</div>
-                                    <div class="preview-desc" data-role="desc"></div>
-                                </div>
-                            </aside>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <aside class="side" style="position:sticky;top:0;align-self:start;height:100vh;overflow:auto;display:flex;flex-direction:column;padding:40px 30px 28px 0;border-right:1px solid var(--line)">
+      <div style="display:flex;align-items:center;gap:14px">
+        <img class="yw-photo" src="assets/profile.png" alt="Portrait of Yichi Wang" style="width:62px;height:62px;border-radius:50%;object-fit:cover;border:1px solid var(--line);filter:saturate(1.03)">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)">AI Researcher</div>
+          <div style="font-size:23px;font-weight:500;line-height:1.05;margin-top:4px">Yichi Wang</div>
         </div>
-    </header>
+      </div>
+      <p style="font-size:15px;font-style:italic;color:var(--ink-2);margin:17px 0 0;line-height:1.5">Trustworthy multimodal &amp;<br>embodied intelligence.</p>
 
-    <!-- About Me Section -->
-    <section class="section about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="section-title" data-aos="fade-up">About Me</h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Passionate research intern exploring the frontiers of multimodal intelligence and security
-                    </p>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <div class="card-modern about-bio" data-aos="fade-up" data-aos-delay="200">
-                        <p class="lead text-center mb-4">
-                            I am an undergraduate student from Beijing University of Technology & a research intern at Hong Kong University of Science and Technology (Guangzhou). My current research approach primarily employs interpretability methods to focus on innovative research in multimodal systems, embodied intelligence, and AI for Security. Through my work, I hope to enable us not only to drive AI models but also to understand why models make certain decisions, which helps us build more white-box AI systems.
-                        </p>
-                        <!-- Hover rays with media, sourced from 0_video/group0..2 -->
-                        <div class="bio-hub" aria-hidden="true">
-                            <!-- Ray 1: -30deg, group0 -->
-                            <div class="bio-ray ray-1">
-                                <figure class="bio-media pos-a">
-                                    <video src="0_video/group0.mp4" muted playsinline loop autoplay preload="auto"></video>
-                                </figure>
-                                <figure class="bio-media pos-b">
-                                    <img src="0_video/group0_1.png" alt="group0 preview">
-                                </figure>
-                            </div>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-2)">
+        <a class="cta-link" href="mailto:mstaryc02@gmail.com" style="display:flex;align-items:center;gap:9px;border-bottom:1px solid transparent;width:fit-content;padding-bottom:1px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>mstaryc02@gmail.com</a>
+        <a class="cta-link" href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;border-bottom:1px solid transparent;width:fit-content;padding-bottom:1px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v3.2L12 20l7-3.62v-3.2L12 17l-7-3.82z"/></svg>Google Scholar</a>
+        <a class="cta-link" href="https://github.com/Yichi-W" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;border-bottom:1px solid transparent;width:fit-content;padding-bottom:1px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5a10.5 10.5 0 00-3.32 20.47c.52.1.71-.23.71-.5v-1.75c-2.92.63-3.54-1.4-3.54-1.4-.48-1.22-1.17-1.55-1.17-1.55-.95-.65.07-.64.07-.64 1.06.07 1.61 1.09 1.61 1.09.94 1.6 2.46 1.14 3.06.87.1-.68.37-1.14.66-1.4-2.33-.27-4.78-1.17-4.78-5.18 0-1.15.41-2.08 1.08-2.82-.11-.27-.47-1.34.1-2.79 0 0 .88-.28 2.88 1.07a9.9 9.9 0 015.24 0c2-1.35 2.88-1.07 2.88-1.07.57 1.45.21 2.52.1 2.79.68.74 1.08 1.67 1.08 2.82 0 4.02-2.45 4.9-4.79 5.16.38.33.71.97.71 1.96v2.9c0 .28.19.61.72.5A10.5 10.5 0 0012 1.5z"/></svg>github.com/Yichi-W</a>
+        <a class="cta-link" href="https://yichi-w.github.io/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:9px;border-bottom:1px solid transparent;width:fit-content;padding-bottom:1px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>yichi-w.github.io</a>
+      </div>
 
-                            <!-- Ray 2: 90deg, group1 -->
-                            <div class="bio-ray ray-2">
-                                <figure class="bio-media pos-a">
-                                    <video src="0_video/group1.mp4" autoplay muted playsinline webkit-playsinline loop preload="auto"></video>
-                                </figure>
-                                <figure class="bio-media pos-b">
-                                    <video src="0_video/group1_1.mp4" autoplay muted playsinline webkit-playsinline loop preload="auto"></video>
+      <nav class="side-nav" style="margin-top:30px;display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--line);padding-top:22px">
+        <a class="nav-link" data-nav="about" href="#about" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">01</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>About</span></a>
+        <a class="nav-link" data-nav="news" href="#news" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">02</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>News</span></a>
+        <a class="nav-link" data-nav="education" href="#education" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">03</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>Education</span></a>
+        <a class="nav-link" data-nav="research" href="#research" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">04</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>Research</span></a>
+        <a class="nav-link" data-nav="publications" href="#publications" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">05</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>Publications</span></a>
+        <a class="nav-link" data-nav="awards" href="#awards" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">06</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>Honors</span></a>
+        <a class="nav-link" data-nav="contact" href="#contact" style="display:flex;align-items:center;gap:12px;padding:5px 0;font-size:14px;color:var(--ink-2)"><span class="nl-num" style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3);width:16px">07</span><span class="nl-dash" style="display:inline-block;width:10px;height:1px;background:var(--line)"></span><span>Contact</span></a>
+      </nav>
+      <div style="margin-top:auto;padding-top:24px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:var(--ink-3)">BEIJING · GUANGZHOU</div>
+    </aside>
 
-                                </figure>
-                            </div>
+    <main style="padding-bottom:80px">
 
-                            <!-- Ray 3: 210deg, group2 -->
-                            <div class="bio-ray ray-3">
-                                <figure class="bio-media pos-a">
-                                    <img src="0_video/group2.png" alt="group2 image">
-                                </figure>
-                                <figure class="bio-media pos-b">
-                                    <img src="0_video/group2_1.png" alt="group2 image">
-                                </figure>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="research-interests">
-                <div class="interest-card" data-aos="fade-up" data-aos-delay="300">
-                    <i class="fas fa-robot"></i>
-                    <h4>Multimodal Large Language Models</h4>
-                    <p>Testing MLLMs from a security perspective, observing substantial biases in models through strategies such as Logit Lens and statistical metrics across various results.</p>
-                </div>
-                
-                <div class="interest-card" data-aos="fade-up" data-aos-delay="400">
-                    <i class="fas fa-brain"></i>
-                    <h4>Embodied Intelligence</h4>
-                    <p>Implementing numerous Vision Language Action Model baselines, discovering significant vulnerabilities to jailbreak strategies such as Prompt Injection.</p>
-                </div>
-                
-                <div class="interest-card" data-aos="fade-up" data-aos-delay="500">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>AI for Security</h4>
-                    <p>Exploring various MLLM models, conducting safety performance testing and fine-tuning of MLLMs from different perspectives, and discovering inherent security issues during current model training processes.</p>
-                </div>
-            </div>
+      <!-- ABOUT -->
+      <section id="about" data-screen-label="About" style="padding:46px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:30px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">01</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">About</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
         </div>
-    </section>
+        <p data-reveal style="font-size:clamp(20px,2.5vw,27px);line-height:1.5;margin:0 0 22px;font-weight:400;max-width:24ch;letter-spacing:-.01em">Hi, I'm Yichi — I study <em style="font-style:italic;color:var(--accent)">when</em> multimodal and embodied models break, and <em style="font-style:italic;color:var(--accent)">how</em> to measure it.</p>
+        <p data-reveal style="font-size:18.5px;line-height:1.62;color:var(--ink-2);margin:0;max-width:62ch">I am an undergraduate in Artificial Intelligence at <strong style="color:var(--ink);font-weight:500">Beijing University of Technology</strong> (Project 211 &amp; Double First-Class), and a research intern at <strong style="color:var(--ink);font-weight:500">HKUST (Guangzhou)</strong> advised by Prof. Renjing Xu. My work sits where <strong style="color:var(--ink);font-weight:500">trustworthy multimodal AI</strong> meets <strong style="color:var(--ink);font-weight:500">embodied intelligence</strong> — probing how vision-, language-, and action-models fail under adversarial and physical stress, and building benchmarks that make those failures measurable. So far I've contributed to four published / accepted papers and two works under review, including a <strong style="color:var(--ink);font-weight:500">Best Student Paper Award</strong> at the IJCAI 2025 workshop.</p>
+        <div data-reveal style="margin-top:20px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.04em;color:var(--ink-3)">INTERESTS &nbsp;·&nbsp; Embodied AI &nbsp;·&nbsp; Explainable AI (XAI) &nbsp;·&nbsp; Model Compression &nbsp;·&nbsp; AI for Security</div>
 
-    <!-- Education Section -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="section-title" data-aos="fade-up">Education</h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Academic foundation in artificial intelligence and computer science
-                    </p>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <div class="education-card" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="education-content">
-                            <h3 class="mb-3">Beijing University of Technology</h3>
-                            <h4 class="mb-3">Bachelor of Science in Artificial Intelligence</h4>
-                            <p class="mb-3">
-                                Twice awarded First-Class Scholarship at Beijing University of Technology, once received the annual Outstanding Student award, and achieved scores of 90+ in multiple theoretical and practical courses (Advanced Mathematics (99), Deep Learning (97), Analog Electronic Technology (92), Complex Functions (92)).
-                            </p>
-                            <div class="gpa-highlight">
-                                <h5 class="mb-0">GPA: 88.36/100</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <figure class="rmap-wrap" data-reveal style="margin:42px 0 6px;padding:0">
+          <figcaption style="display:flex;align-items:baseline;gap:14px;margin-bottom:6px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap">Fig. 01 — Research map</span>
+            <span style="font-size:15.5px;font-style:italic;color:var(--ink-2);line-height:1.4">Two threads, one question. Hover a node to trace it.</span>
+          </figcaption>
+          <div style="overflow-x:auto;margin:0 -2px">
+            <svg class="rmap" viewBox="0 0 840 480" role="img" aria-label="Interactive map linking two research themes to six papers" style="width:100%;min-width:640px;height:auto;display:block">
+              <g fill="none" stroke="var(--line)" stroke-width="1.2">
+                <path class="edge" data-theme="trust" data-to="tvpi" d="M250 150 C 365 150 380 70 498 70"/>
+                <path class="edge" data-theme="trust" data-to="jailbreak" d="M250 150 C 365 150 380 140 498 140"/>
+                <path class="edge" data-theme="trust" data-to="transfer" d="M250 150 C 365 150 380 210 498 210"/>
+                <path class="edge" data-theme="trust" data-to="vla" d="M250 156 C 380 175 410 280 498 280"/>
+                <path class="edge" data-theme="embodied" data-to="vla" d="M250 324 C 380 305 410 280 498 280"/>
+                <path class="edge" data-theme="embodied" data-to="humanoid" d="M250 330 C 365 330 380 350 498 350"/>
+                <path class="edge" data-theme="embodied" data-to="dexterous" d="M250 330 C 365 330 380 420 498 420"/>
+              </g>
+              <g class="nodeg hub" data-hub="trust" data-theme="trust" tabindex="0" role="button" aria-label="Theme: Adversarial and Trustworthy Multimodal AI">
+                <rect class="pill" x="40" y="122" width="210" height="56" rx="10" fill="var(--ink)" stroke="var(--ink)"/>
+                <text x="145" y="146" text-anchor="middle" fill="#f4f1ea" font-size="13.5" font-family="Newsreader,serif" font-weight="500">Adversarial &amp; Trustworthy</text>
+                <text x="145" y="164" text-anchor="middle" fill="#c9b9aa" font-size="12" font-family="Newsreader,serif" font-style="italic">Multimodal AI</text>
+              </g>
+              <g class="nodeg hub" data-hub="embodied" data-theme="embodied" tabindex="0" role="button" aria-label="Theme: Embodied AI and World Models">
+                <rect class="pill" x="40" y="302" width="210" height="56" rx="10" fill="var(--ink)" stroke="var(--ink)"/>
+                <text x="145" y="326" text-anchor="middle" fill="#f4f1ea" font-size="13.5" font-family="Newsreader,serif" font-weight="500">Embodied AI &amp;</text>
+                <text x="145" y="344" text-anchor="middle" fill="#c9b9aa" font-size="12" font-family="Newsreader,serif" font-style="italic">World Models</text>
+              </g>
+              <g class="nodeg paper" data-node="tvpi" data-theme="trust" data-target="pub-tvpi" tabindex="0" role="button" aria-label="Paper: TVPI, Best Student Paper">
+                <rect class="pill" x="498" y="51" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+                <text x="514" y="75" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">TVPI · Visual Prompt Injection</text>
+                <text x="800" y="75.5" text-anchor="end" fill="var(--accent)" font-size="13">★</text>
+              </g>
+              <g class="nodeg paper" data-node="jailbreak" data-theme="trust" data-target="pub-jailbreak" tabindex="0" role="button" aria-label="Paper: Jailbreak-AudioBench">
+                <rect class="pill" x="498" y="121" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+                <text x="514" y="145" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">Jailbreak-AudioBench</text>
+              </g>
+              <g class="nodeg paper" data-node="transfer" data-theme="trust" data-target="pub-transfer" tabindex="0" role="button" aria-label="Paper: Transfer Attack across MLLMs">
+                <rect class="pill" x="498" y="191" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)"/>
+                <text x="514" y="215" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">Transfer Attack across MLLMs</text>
+              </g>
+              <g class="nodeg paper bridge" data-node="vla" data-theme="bridge" data-themes="trust embodied" data-target="pub-iros" tabindex="0" role="button" aria-label="Paper: Physical Threats in Vision-Language-Action models (bridges both themes)">
+                <rect class="pill" x="498" y="261" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)" stroke-dasharray="0"/>
+                <text x="514" y="285" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">Physical Threats in VLA</text>
+                <text x="800" y="285.5" text-anchor="end" fill="var(--ink-3)" font-size="9.5" font-family="IBM Plex Mono,monospace">bridge</text>
+              </g>
+              <g class="nodeg paper" data-node="humanoid" data-theme="embodied" data-target="pub-humanoid" tabindex="0" role="button" aria-label="Paper: HumanoidArena, under review">
+                <rect class="pill" x="498" y="331" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)" stroke-dasharray="4 3"/>
+                <text x="514" y="355" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">HumanoidArena</text>
+              </g>
+              <g class="nodeg paper" data-node="dexterous" data-theme="embodied" data-target="pub-dexterous" tabindex="0" role="button" aria-label="Paper: Dexterous World Model, under review">
+                <rect class="pill" x="498" y="401" width="316" height="38" rx="8" fill="var(--paper-2)" stroke="var(--line)" stroke-dasharray="4 3"/>
+                <text x="514" y="425" fill="var(--ink)" font-size="13.5" font-family="Newsreader,serif">Dexterous World Model</text>
+              </g>
+            </svg>
+          </div>
+          <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--line);min-height:42px;display:flex;gap:14px;align-items:baseline">
+            <span class="rd-kicker" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);white-space:nowrap">Map</span>
+            <span class="rd-text" style="font-size:15.5px;color:var(--ink-2);font-style:italic;line-height:1.45">Hover a node to trace a thread · click to open the paper.</span>
+          </div>
+        </figure>
+      </section>
 
-<!-- Research Experience Section -->
-<section class="section about-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="section-title" data-aos="fade-up">Research Experience</h2>
-                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                    Collaborative research at leading institutions
-                </p>
-            </div>
+      <!-- NEWS -->
+      <section id="news" data-screen-label="News" style="padding:54px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:24px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">02</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">News</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
         </div>
-        
-        <div class="row">
-            <div class="col-lg-10 offset-lg-1">
-                <div class="card-modern" data-aos="fade-up" data-aos-delay="200">
-                    <div class="row align-items-center">
-                        <div class="col-lg-3 text-center mb-4 mb-lg-0">
-                            <img src="images/hkust-gz-logo.png" alt="HKUST(GZ) Logo" style="width: 180px; height: auto; max-width: 100%; object-fit: contain;">
-                        </div>
-                        <div class="col-lg-9">
-                            <h3 class="mb-3">Research Intern</h3>
-                            <h4 class="text-primary mb-3">The Hong Kong University of Science and Technology (Guangzhou)</h4>
-                            <p class="mb-3">
-                                <strong>Supervisor:</strong> Prof. Renjing Xu
-                            </p>
-                            <p>
-                                Engaged in advanced research projects focusing on AI security, multimodal systems, 
-                                and adversarial machine learning. Contributing to cutting-edge publications and 
-                                developing novel approaches to AI robustness and security challenges.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <ol style="list-style:none;margin:0;padding:0">
+          <li class="news-item" data-reveal data-scroll="#research" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">Jan 2026</span>
+            <span style="font-size:16.5px;line-height:1.45">Began a research internship at <strong style="font-weight:500">HKUST (Guangzhou)</strong> with Prof. Renjing Xu. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Research</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#publications" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">2026</span>
+            <span style="font-size:16.5px;line-height:1.45">Two papers under review at <strong style="font-weight:500">NeurIPS 2026</strong> D&amp;B and <strong style="font-weight:500">ACM MM 2026</strong>. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Publications</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#awards" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">2026</span>
+            <span style="font-size:16.5px;line-height:1.45">Won a <strong style="font-weight:500">Bronze Medal</strong> (solo) at Kaggle <strong style="font-weight:500">BirdCLEF+ 2026</strong> — 299 / 4084 teams. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Honors</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#pub-jailbreak" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">Sep 2025</span>
+            <span style="font-size:16.5px;line-height:1.45"><strong style="font-weight:500">Jailbreak-AudioBench</strong> accepted at <strong style="font-weight:500">NeurIPS 2025</strong> Datasets &amp; Benchmarks Track. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Paper</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#pub-tvpi" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">Aug 2025</span>
+            <span style="font-size:16.5px;line-height:1.45">Received the <strong style="font-weight:500">Best Student Paper Award</strong> at the IJCAI 2025 workshop for <strong style="font-weight:500">TVPI</strong>. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Paper</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#pub-transfer" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">2025</span>
+            <span style="font-size:16.5px;line-height:1.45"><strong style="font-weight:500">Transfer Attack for Bad and Good</strong> accepted at <strong style="font-weight:500">ACM Multimedia 2025</strong>. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Paper</span></span>
+          </li>
+          <li class="news-item" data-reveal data-scroll="#awards" style="display:grid;grid-template-columns:96px 1fr;gap:22px;padding:13px 10px 13px 8px;margin:0 -10px 0 -8px;border-bottom:1px solid var(--line);border-radius:4px;cursor:pointer">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);padding-top:3px">2025</span>
+            <span style="font-size:16.5px;line-height:1.45">Led my team to <strong style="font-weight:500">5th / 258</strong> (Top 2%) in the IJCAI 2025 Workshop Challenge. <span style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11px">→ Honors</span></span>
+          </li>
+        </ol>
+      </section>
+
+      <!-- EDUCATION -->
+      <section id="education" data-screen-label="Education" style="padding:54px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:26px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">03</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">Education</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
         </div>
+        <div data-reveal style="display:grid;grid-template-columns:1fr auto;gap:6px 24px;align-items:baseline">
+          <h3 style="font-size:21px;font-weight:500;margin:0">Beijing University of Technology</h3>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);text-align:right">2021 — 2025</span>
+          <p style="grid-column:1/2;margin:2px 0 0;font-size:16.5px;font-style:italic;color:var(--ink-2)">B.Eng. in Artificial Intelligence &nbsp;·&nbsp; GPA 88.36 / 100</p>
+        </div>
+        <div data-reveal style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">Project 211</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">Double First-Class</span>
+        </div>
+        <div data-reveal style="margin-top:20px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:11px">Selected coursework</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span style="font-size:14.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:5px 11px;background:var(--paper-2);white-space:nowrap">Advanced Mathematics <strong style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11.5px">99</strong></span>
+            <span style="font-size:14.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:5px 11px;background:var(--paper-2);white-space:nowrap">Deep Learning <strong style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11.5px">97</strong></span>
+            <span style="font-size:14.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:5px 11px;background:var(--paper-2);white-space:nowrap">Analog Electronic Technology <strong style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11.5px">92</strong></span>
+            <span style="font-size:14.5px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:5px 11px;background:var(--paper-2);white-space:nowrap">Complex Functions <strong style="color:var(--accent);font-family:'IBM Plex Mono',monospace;font-size:11.5px">92</strong></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RESEARCH -->
+      <section id="research" data-screen-label="Research Experience" style="padding:54px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:26px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">04</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">Research Experience</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
+        </div>
+        <div data-reveal style="display:grid;grid-template-columns:1fr auto;gap:6px 24px;align-items:baseline">
+          <h3 style="font-size:21px;font-weight:500;margin:0">The Hong Kong University of Science and Technology (Guangzhou)</h3>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);text-align:right;white-space:nowrap">Jan 2026 — Present</span>
+          <p style="grid-column:1/2;margin:2px 0 0;font-size:16.5px;font-style:italic;color:var(--ink-2)">Research Intern &nbsp;·&nbsp; Advisor: Prof. Renjing Xu</p>
+        </div>
+        <ul data-reveal style="margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;max-width:64ch">
+          <li style="display:flex;gap:12px;font-size:16.5px;line-height:1.55;color:var(--ink-2)"><span style="color:var(--accent);font-size:13px;padding-top:4px">◆</span><span>Contributed to <strong style="color:var(--ink);font-weight:500">four published / accepted works</strong> and <strong style="color:var(--ink);font-weight:500">two works under review</strong> (NeurIPS 2026 D&amp;B; ACM MM 2026).</span></li>
+          <li style="display:flex;gap:12px;font-size:16.5px;line-height:1.55;color:var(--ink-2)"><span style="color:var(--accent);font-size:13px;padding-top:4px">◆</span><span>Focus on the <strong style="color:var(--ink);font-weight:500">adversarial robustness</strong> of multimodal LLMs and the <strong style="color:var(--ink);font-weight:500">reliability of embodied world models</strong> — from typographic prompt injection to whole-body benchmarking.</span></li>
+        </ul>
+        <div data-reveal style="margin-top:20px;display:flex;flex-wrap:wrap;gap:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">Embodied AI</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">Explainable AI</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">Model Compression</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:3px;padding:4px 9px">AI for Security</span>
+        </div>
+      </section>
+
+      <!-- PUBLICATIONS -->
+      <section id="publications" data-screen-label="Publications" style="padding:54px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:18px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">05</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">Publications</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
+        </div>
+        <div data-reveal style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-bottom:8px">
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <button class="filter-chip is-on" data-filter="all" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;border:1px solid var(--line);border-radius:3px;padding:5px 11px;color:var(--ink-2)">All</button>
+            <button class="filter-chip" data-filter="trust" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;border:1px solid var(--line);border-radius:3px;padding:5px 11px;color:var(--ink-2)">Trustworthy</button>
+            <button class="filter-chip" data-filter="embodied" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;border:1px solid var(--line);border-radius:3px;padding:5px 11px;color:var(--ink-2)">Embodied</button>
+            <button class="filter-chip" data-filter="review" style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;border:1px solid var(--line);border-radius:3px;padding:5px 11px;color:var(--ink-2)">Under review</button>
+          </div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-3);margin-left:auto">* equal contribution</span>
+        </div>
+
+        <!-- TVPI -->
+        <article class="pub" id="pub-tvpi" data-status="published" data-themes="trust" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)">
+          <button class="teaser" data-cert="p_tvpi" aria-label="Open TVPI poster" style="display:block;width:100%;text-align:left">
+            <img src="assets/pub-ijcai.png" alt="IJCAI 2025 poster for TVPI" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);border-radius:4px;background:#fff">
+          </button>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">IJCAI 2025 · Workshop</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:#f4f1ea;background:var(--accent);border-radius:3px;padding:3px 8px">★ Best Student Paper</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0 0 12px">Hao Cheng*, Erjia Xiao*, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang*</span>, Lingfeng Zhang, Qiang Zhang, Jiahang Cao, Kaidi Xu, Mengshu Sun, Xiaoshuai Hao, Jindong Gu, Renjing Xu</p>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">
+              <button class="cta-link" data-cert="p_tvpi" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">Poster ↗</button>
+              <button class="cta-link" data-scroll="#awards" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">Award ↗</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Jailbreak-AudioBench -->
+        <article class="pub" id="pub-jailbreak" data-status="published" data-themes="trust" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)">
+          <button class="teaser" data-cert="p_neurips" aria-label="Open Jailbreak-AudioBench poster" style="display:block;width:100%;text-align:left">
+            <img src="assets/pub-neurips.png" alt="NeurIPS 2025 poster for Jailbreak-AudioBench" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);border-radius:4px;background:#fff">
+          </button>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">NeurIPS 2025 · Datasets &amp; Benchmarks</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0 0 12px">Hao Cheng*, Erjia Xiao*, Jing Shao*, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang</span>, Le Yang, Chao Shen, Philip Torr, Jindong Gu, Renjing Xu</p>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">
+              <a class="cta-link" href="https://papers.nips.cc/paper_files/paper/2025/hash/0ff38d72a2e0aa6dbe42de83a17b2223-Abstract-Datasets_and_Benchmarks_Track.html" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">NeurIPS ↗</a>
+              <button class="cta-link" data-cert="p_neurips" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">Poster ↗</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Transfer Attack -->
+        <article class="pub" id="pub-transfer" data-status="published" data-themes="trust" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)">
+          <button class="teaser" data-cert="p_acm" aria-label="Open Transfer Attack poster" style="display:block;width:100%;text-align:left">
+            <img src="assets/pub-acm.png" alt="ACM MM 2025 poster for Transfer Attack" loading="lazy" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--line);border-radius:4px;background:#fff">
+          </button>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">ACM Multimedia 2025</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">Transfer Attack for Bad and Good: Explain and Boost Adversarial Transferability across Multimodal Large Language Models</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0 0 12px">Hao Cheng*, Erjia Xiao*, Jiayan Yang, Jinhao Duan, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang</span>, Jiahang Cao, Qiang Zhang, Le Yang, Kaidi Xu, Jindong Gu, Renjing Xu</p>
+            <div style="display:flex;flex-wrap:wrap;gap:16px;font-family:'IBM Plex Mono',monospace;font-size:11.5px">
+              <a class="cta-link" href="https://doi.org/10.1145/3746027.3755715" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">DOI ↗</a>
+              <button class="cta-link" data-cert="p_acm" style="border-bottom:1px solid var(--line);padding-bottom:2px;color:var(--ink-2)">Poster ↗</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- IROS / VLA -->
+        <article class="pub" id="pub-iros" data-status="published" data-themes="trust embodied" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)">
+          <div class="teaser" style="width:100%;aspect-ratio:16/9;border:1px solid var(--line);border-radius:4px;background:var(--paper-2);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px">
+            <svg viewBox="0 0 120 70" style="position:absolute;top:12px;right:12px;width:64px;height:auto;opacity:.5" fill="none" stroke="var(--accent)" stroke-width="1.4"><circle cx="18" cy="18" r="4"/><circle cx="18" cy="52" r="4"/><circle cx="100" cy="35" r="4"/><path d="M22 18 L96 34 M22 52 L96 36"/></svg>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)">Bridges both threads</div>
+            <div style="font-size:30px;font-weight:500;letter-spacing:-.01em;line-height:1;margin-top:4px">IROS<span style="color:var(--ink-3)">'25</span></div>
+          </div>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">IROS 2025 · Workshop</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">Manipulation Facing Threats: Evaluating Physical Vulnerabilities in End-to-End Vision-Language-Action Models</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0">Hao Cheng*, Erjia Xiao*, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang*</span>, Chengyuan Yu, Mengshu Sun, Qiang Zhang, Yijie Guo, Kaidi Xu, Jize Zhang, Chao Shen, Philip Torr, Jindong Gu, Renjing Xu</p>
+          </div>
+        </article>
+
+        <!-- HumanoidArena -->
+        <article class="pub" id="pub-humanoid" data-status="review" data-themes="embodied" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line)">
+          <div class="teaser" style="width:100%;aspect-ratio:16/9;border:1px dashed var(--line);border-radius:4px;background:var(--paper-2);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px">
+            <svg viewBox="0 0 120 70" style="position:absolute;top:12px;right:12px;width:64px;height:auto;opacity:.45" fill="none" stroke="var(--ink-3)" stroke-width="1.4"><circle cx="60" cy="14" r="5"/><path d="M60 19 L60 42 M60 26 L44 36 M60 26 L76 36 M60 42 L48 60 M60 42 L72 60"/></svg>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)">Under review</div>
+            <div style="font-size:26px;font-weight:500;letter-spacing:-.01em;line-height:1;margin-top:4px">NeurIPS<span style="color:var(--ink-3)">'26</span></div>
+          </div>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">NeurIPS 2026 · D&amp;B</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-2);border:1px solid var(--ink-3);border-radius:3px;padding:3px 8px">Under review</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">HumanoidArena: Benchmarking Egocentric Hierarchical Whole-body Learning</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0">Taowen Wang, Zikang Xie, Bin Yang, Yunheng Wang, Zizhao Yuan, Yuetong Fang, Yixiao Feng, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang</span>, Xingyu Chen, Haodong Chen, Qiwei Wu, Weisheng Xu, Lihan Chen, Lusong Li, Zecui Zeng, Renjing Xu</p>
+          </div>
+        </article>
+
+        <!-- Dexterous World Model -->
+        <article class="pub" id="pub-dexterous" data-status="review" data-themes="embodied" data-reveal style="display:grid;grid-template-columns:300px 1fr;gap:28px;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+          <div class="teaser" style="width:100%;aspect-ratio:16/9;border:1px dashed var(--line);border-radius:4px;background:var(--paper-2);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:16px">
+            <svg viewBox="0 0 120 70" style="position:absolute;top:12px;right:12px;width:60px;height:auto;opacity:.45" fill="none" stroke="var(--ink-3)" stroke-width="1.4"><path d="M40 58 L40 30 Q40 22 48 22 Q56 22 56 30 M56 30 Q56 20 64 20 Q72 20 72 30 M72 30 Q72 22 80 22 Q88 22 88 32 L88 50"/><path d="M40 38 L32 44"/></svg>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)">Under review</div>
+            <div style="font-size:24px;font-weight:500;letter-spacing:-.01em;line-height:1;margin-top:4px">ACM&nbsp;MM<span style="color:var(--ink-3)">'26</span></div>
+          </div>
+          <div>
+            <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:9px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--line);border-radius:3px;padding:3px 8px">ACM Multimedia 2026</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.03em;color:var(--ink-2);border:1px solid var(--ink-3);border-radius:3px;padding:3px 8px">Under review</span>
+            </div>
+            <h3 style="font-size:20px;font-weight:500;line-height:1.32;margin:0 0 9px;letter-spacing:-.01em">Not All Actions Are Equal: Rethinking Conditioning for Dexterous World Model</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--ink-2);margin:0">Zizhao Yuan, Taowen Wang, Zhengtu Liang, Qiwei Liang, <span style="color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:2px">Yichi Wang</span>, Yunheng Wang, Yuetong Fang, Lusong Li, Zecui Zeng, Renjing Xu</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- AWARDS -->
+      <section id="awards" data-screen-label="Honors and Awards" style="padding:54px 0 8px">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:8px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">06</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">Honors &amp; Awards</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
+        </div>
+
+        <div data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:28px 0 6px">International</div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Best Student Paper Award <span style="color:var(--ink-3);font-weight:400;font-size:14px">— IJCAI 2025 Workshop on Deepfake Detection, Localization &amp; Interpretability</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">INTERNATIONAL · CO-FIRST AUTHOR</div></div>
+          <button class="cert-btn" data-cert="ijcai" aria-label="View certificate"><img src="assets/cert-ijcai-bestpaper.jpg" alt="IJCAI Best Student Paper certificate" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">5th / 258 Teams — IJCAI 2025 Workshop Challenge <span style="color:var(--accent);font-size:13px;font-family:'IBM Plex Mono',monospace">Top 2%</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">INTERNATIONAL · TEAM LEAD · TIANCHI / ALIBABA CLOUD</div></div>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-3)">—</span>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Bronze Medal — Kaggle BirdCLEF+ 2026 <span style="color:var(--accent);font-size:13px;font-family:'IBM Plex Mono',monospace">299 / 4084</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">INTERNATIONAL · SOLO · TOP 8%</div></div>
+          <button class="cert-btn" data-cert="birdclef" aria-label="View certificate"><img src="assets/cert-birdclef.png" alt="Kaggle BirdCLEF+ bronze medal" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+        </div>
+
+        <div data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:28px 0 6px">National</div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">First Prize — Advanced Robotic Vision: 3D Recognition (Finals)</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">NATIONAL · TEAM LEAD · CHINA ROBOT COMPETITION &amp; ROBOCUP CHINA OPEN 2025</div></div>
+          <button class="cert-btn" data-cert="3dnat" aria-label="View certificate (PDF)" style="width:58px;height:44px;border:1px solid var(--line);border-radius:3px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ink-2)">PDF</button>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Third Prize — Advanced Robotic Vision: Industrial Metrology (Finals)</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">NATIONAL · TEAM LEAD · CHINA ROBOT COMPETITION &amp; ROBOCUP CHINA OPEN 2025</div></div>
+          <button class="cert-btn" data-cert="industrial" aria-label="View certificate (PDF)" style="width:58px;height:44px;border:1px solid var(--line);border-radius:3px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ink-2)">PDF</button>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">First Prize — Datawhale AI Summer Camp</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">NATIONAL · TEAM LEAD · ML USER-ACQUISITION PREDICTION</div></div>
+          <button class="cert-btn" data-cert="datawhale" aria-label="View certificate"><img src="assets/cert-datawhale.jpg" alt="Datawhale AI Summer Camp certificate" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+        </div>
+
+        <div data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:28px 0 6px">Provincial</div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Two × Second Prize — 3D Recognition &amp; Industrial Metrology</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">PROVINCIAL · TEAM LEAD · ROBOCUP CHINA 2025 SPECIAL EVENT, YANTAI</div></div>
+          <button class="cert-btn" data-cert="prov3d" aria-label="View certificate"><img src="assets/cert-3d-provincial.jpg" alt="Provincial Second Prize certificate" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+        </div>
+
+        <div data-reveal style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin:28px 0 6px">University · Beijing University of Technology</div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Outstanding Student Award</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">2022 — 2023</div></div>
+          <button class="cert-btn" data-cert="outstanding" aria-label="View certificate"><img src="assets/cert-outstanding.jpg" alt="Outstanding Student Award certificate" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Innovation &amp; Entrepreneurship Award</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">2024 — 2025</div></div>
+          <button class="cert-btn" data-cert="innovation" aria-label="View certificate (PDF)" style="width:58px;height:44px;border:1px solid var(--line);border-radius:3px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ink-2)">PDF</button>
+        </div>
+        <div class="award-row" data-reveal style="display:grid;grid-template-columns:1fr auto;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);align-items:center">
+          <div><div style="font-size:17px;font-weight:500;line-height:1.35">Academic Excellence Scholarship <span style="color:var(--accent);font-size:13px;font-family:'IBM Plex Mono',monospace">×3, Top 10%</span></div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-2);margin-top:5px">2021–22 · 2023–24 · 2024–25</div></div>
+          <div style="display:flex;gap:7px">
+            <button class="cert-btn" data-cert="schol2324" aria-label="View 2023-24 certificate"><img src="assets/cert-scholarship-2324.jpg" alt="Scholarship 2023-24 certificate" loading="lazy" style="width:58px;height:44px;object-fit:cover;border:1px solid var(--line);border-radius:3px"></button>
+            <button class="cert-btn" data-cert="schol2425" aria-label="View 2024-25 certificate (PDF)" style="width:58px;height:44px;border:1px solid var(--line);border-radius:3px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--ink-2)">PDF</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" data-screen-label="Contact" style="padding:54px 0 0">
+        <div data-reveal style="display:flex;align-items:baseline;gap:16px;margin-bottom:28px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em">07</span>
+          <h2 style="font-size:clamp(20px,2.4vw,26px);font-weight:500;margin:0">Contact</h2>
+          <span style="flex:1;height:1px;background:var(--line)"></span>
+        </div>
+        <p data-reveal style="font-size:clamp(22px,3vw,32px);line-height:1.35;margin:0 0 26px;font-weight:400;max-width:18ch;letter-spacing:-.01em">Open to PhD opportunities &amp; research collaboration.</p>
+        <div data-reveal style="display:flex;flex-wrap:wrap;gap:12px 40px;font-family:'IBM Plex Mono',monospace;font-size:13.5px">
+          <a class="cta-link" href="mailto:mstaryc02@gmail.com" style="border-bottom:1px solid var(--line);padding-bottom:3px;color:var(--ink)">mstaryc02@gmail.com</a>
+          <a class="cta-link" href="mailto:wangyc2002@emails.bjut.edu.cn" style="border-bottom:1px solid var(--line);padding-bottom:3px;color:var(--ink-2)">wangyc2002@emails.bjut.edu.cn</a>
+          <a class="cta-link" href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line);padding-bottom:3px;color:var(--ink)">Google Scholar ↗</a>
+          <a class="cta-link" href="https://github.com/Yichi-W" target="_blank" rel="noopener" style="border-bottom:1px solid var(--line);padding-bottom:3px;color:var(--ink)">GitHub ↗</a>
+        </div>
+        <div style="margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-3)">© 2026 YICHI WANG</span>
+          <a class="cta-link" href="#about" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--ink-3)">BACK TO TOP ↑</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="lb" id="yw-lb" role="dialog" aria-modal="true" aria-label="Certificate viewer">
+    <button class="lb-btn lb-close" aria-label="Close" style="top:20px;right:24px;font-size:30px;line-height:1">✕</button>
+    <button class="lb-btn lb-prev" aria-label="Previous" style="left:18px;top:50%;transform:translateY(-50%);font-size:48px;line-height:1">‹</button>
+    <button class="lb-btn lb-next" aria-label="Next" style="right:18px;top:50%;transform:translateY(-50%);font-size:48px;line-height:1">›</button>
+    <div class="lb-stage" style="max-width:min(1000px,92vw);max-height:88vh;display:flex;flex-direction:column;gap:14px;align-items:center">
+      <div class="lb-media" style="display:flex;align-items:center;justify-content:center"></div>
+      <div style="text-align:center"><div class="lb-cap-k" style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c9b9aa"></div><div class="lb-cap-t" style="font-family:'Newsreader',serif;font-size:15px;color:#f4f1ea;margin-top:5px"></div></div>
     </div>
-</section>
-
-<!-- Publications Section -->
-<section class="section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="section-title" data-aos="fade-up">Publications</h2>
-                <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                    Participated in multiple CCF-A paper projects and gradually mastered practical and writing skills through this experience
-                </p>
-            </div>
-        </div>
-        
-        <div class="publications-grid">
-            <div class="publication-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="publication-image">
-                    <img src="images/publications/ijcai.png" alt="IJCAI Paper Preview" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">
-                </div>
-                <div class="publication-content">
-                    <div class="publication-badge">IJCAI Workshop Best Paper Nomination</div>
-                    <h4 class="publication-title">Exploring Typographic Visual Prompts Injection Threats</h4>
-                    <p class="publication-venue">IJCAI 2025 Workshop</p>
-                    <p class="mb-3">
-                        Investigates novel attack vectors in multimodal AI systems through typographic visual prompts, 
-                        revealing critical security vulnerabilities and proposing defensive mechanisms.
-                    </p>
-                    <div class="publication-links">
-                        <a href="https://arxiv.org/abs/2503.11519" class="pub-link">
-                            <i class="fas fa-file-pdf"></i>
-                            Paper
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="publication-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="publication-image">
-                    <img src="images/publications/acm.png" alt="ACM MM Paper Preview" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">
-                </div>
-                <div class="publication-content">
-                    <div class="publication-badge">ACM MM 2025</div>
-                    <h4 class="publication-title">Transfer Attack for Bad and Good</h4>
-                    <p class="publication-venue">ACM Multimedia Conference 2025</p>
-                    <p class="mb-3">
-                        Explores the dual nature of transfer attacks in multimodal systems, analyzing both 
-                        malicious applications and potential benefits for robustness testing and model improvement.
-                    </p>
-                    <div class="publication-links">
-                        <a href="https://arxiv.org/abs/2405.20090" class="pub-link">
-                            <i class="fas fa-file-pdf"></i>
-                            Paper
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="publication-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="publication-image">
-                    <img src="images/publications/neurips.png" alt="NeurIPS Paper Preview" style="width: 100%; height: 100%; object-fit: contain; padding: 10px;">
-                </div>
-                <div class="publication-content">
-                    <div class="publication-badge">Under Review</div>
-                    <h4 class="publication-title">JailbreakAudioBench</h4>
-                    <p class="publication-venue">NeurIPS 2025 (Submitted)</p>
-                    <p class="mb-3">
-                        Introduces a comprehensive benchmark for evaluating audio-based jailbreak attacks on 
-                        multimodal AI systems, providing new insights into audio adversarial vulnerabilities.
-                    </p>
-                    <div class="publication-links">
-                        <a href="https://arxiv.org/abs/2501.13772" class="pub-link">
-                            <i class="fas fa-file-pdf"></i>
-                            Paper
-                        </a>
-                        <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench-Plus" class="pub-link">
-                            <i class="fas fa-database"></i>
-                            Dataset
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-    <!-- Interactive Demo Section -->
-    <section class="demo-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="demo-container" data-aos="zoom-in">
-                        <div class="demo-content">
-                            <h2 class="mb-4">JailbreakAudioBench Interactive Demo</h2>
-                            <p class="lead mb-4">
-                                Experience our cutting-edge audio-based jailbreak testing framework. This interactive 
-                                demo showcases the capabilities of our benchmark system for evaluating multimodal AI 
-                                security vulnerabilities through audio inputs.
-                            </p>
-                            <p class="mb-4">
-                                Explore various audio attack scenarios, test different AI models, and understand the 
-                                importance of audio security in multimodal systems.
-                            </p>
-                            <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/#audio-demo" class="demo-btn">
-                                <i class="fas fa-play"></i>
-                                Launch Interactive Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="section-title" data-aos="fade-up">Skills & Expertise</h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Technical and professional skills developed through research and practice
-                    </p>
-                </div>
-            </div>
-            
-            <div class="skills-grid">
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="skill-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h4 class="skill-name">Web Development</h4>
-                    <p class="skill-description">
-                        Proficient in modern web technologies including HTML5, CSS3, JavaScript, and various frameworks. 
-                        Experience in building responsive, interactive web applications and research presentation platforms.
-                    </p>
-                </div>
-                
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="skill-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h4 class="skill-name">Python Programming</h4>
-                    <p class="skill-description">
-                        Advanced proficiency in Python for research intern, including deep learning frameworks like PyTorch 
-                        and TensorFlow, data analysis with NumPy and Pandas, and scientific computing.
-                    </p>
-                </div>
-                
-                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="skill-icon">
-                        <i class="fas fa-chalkboard-teacher"></i>
-                    </div>
-                    <h4 class="skill-name">Technical Presentation</h4>
-                    <p class="skill-description">
-                        Demonstrating understanding and implementation of interpretability papers and algorithms to fellow students through Bilibili, receiving highly positive feedback from audiences.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Awards Section -->
-    <section class="awards-section section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="section-title" data-aos="fade-up">Awards & Recognition</h2>
-                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-                        Recognition for academic excellence and research contributions
-                    </p>
-                </div>
-            </div>
-            
-            <div class="awards-grid">
-                <div class="award-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="award-icon">
-                        <i class="fas fa-award"></i>
-                    </div>
-                    <h4 class="award-title">Best Paper Nomination</h4>
-                    <p class="award-description">
-                        Received Best Paper Nomination at IJCAI 2025 Workshop for research on typographic visual 
-                        prompt injection threats in multimodal AI systems.
-                    </p>
-                </div>
-                
-                <div class="award-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="award-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h4 class="award-title">Academic Excellence</h4>
-                    <p class="award-description">
-                        Maintained outstanding academic performance with a GPA of 88.36/100 in the competitive 
-                        AI program at Beijing University of Technology.
-                    </p>
-                </div>
-                
-                <div class="award-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="award-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h4 class="award-title">Research Intern</h4>
-                    <p class="award-description">
-                        Selected for prestigious research Intern with HKUST(GZ) under the supervision of 
-                        Prof. Renjing Xu, focusing on advanced AI security research.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
-                    <a href="mailto:wangyc2002@emails.bjut.edu.cn" class="footer-link">
-                        <i class="fas fa-envelope"></i>
-                        Contact
-                    </a>
-                    <a href="https://scholar.google.com/citations?user=TdeISC0AAAAJ&hl" class="footer-link">
-                        <i class="fab fa-google"></i>
-                        Google Scholar
-                    </a>
-                    <a href="#" class="footer-link">
-                        <i class="fab fa-github"></i>
-                        GitHub
-                    </a>
-                </div>
-                <p>&copy; 2025 Yichi Wang. All rights reserved.</p>
-                <p>Dedicated to advancing AI research and security</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#7a2c2c&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#7a2c2c&quot;,&quot;#1c3d5a&quot;,&quot;#2f4a3a&quot;,&quot;#1a1714&quot;],&quot;section&quot;:&quot;Theme&quot;},&quot;monochromePhoto&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;showResearchMap&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = document.getElementById('yw-root');
+    if (!root) return;
+    this.root = root;
+    // tweaks
+    if (this.props.accent) root.style.setProperty('--accent', this.props.accent);
+    if (this.props.monochromePhoto === true) root.querySelectorAll('.yw-photo').forEach(i => i.style.filter = 'grayscale(1) contrast(1.03)');
+    if (this.props.showResearchMap === false) { const w = root.querySelector('.rmap-wrap'); if (w) w.style.display = 'none'; }
+    this.initReveal();
+    this.initNav();
+    this.initScrollLinks();
+    this.initMap();
+    this.initFilter();
+    this.initLightbox();
+  }
+  scrollToEl(t) {
+    if (!t) return;
+    const y = t.getBoundingClientRect().top + window.pageYOffset - 20;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+  pulse(t) {
+    if (!t) return;
+    t.classList.remove('pulse-target'); void t.offsetWidth; t.classList.add('pulse-target');
+    setTimeout(() => t.classList.remove('pulse-target'), 1600);
+  }
+  initReveal() {
+    const els = [...this.root.querySelectorAll('[data-reveal]')];
+    const reveal = (e) => e.classList.add('is-visible');
+    const showAll = () => { this.root.classList.remove('reveal-armed'); els.forEach(reveal); };
+    // Only play the entrance animation when the context can actually animate. In a
+    // hidden/inactive render context, CSS transitions freeze at the start value (opacity 0),
+    // which would leave content blank — so there we just show everything immediately.
+    if (document.visibilityState !== 'visible') {
+      showAll();
+    } else {
+      this.root.classList.add('reveal-armed');
+      const vh = () => window.innerHeight || document.documentElement.clientHeight || 800;
+      const sweep = () => {
+        const h = vh();
+        els.forEach(e => {
+          if (e.classList.contains('is-visible')) return;
+          const r = e.getBoundingClientRect();
+          if (r.top < h * 0.94 && r.bottom > -40) reveal(e);
         });
-
-        // Smooth scrolling for anchor links
-        $('a[href^="#"]').on('click', function(event) {
-            var target = $(this.getAttribute('href'));
-            if( target.length ) {
-                event.preventDefault();
-                $('html, body').stop().animate({
-                    scrollTop: target.offset().top - 80
-                }, 1000);
-            }
-        });
-
-        // Add scroll effect to header
-        $(window).on('scroll', function() {
-            if ($(window).scrollTop() > 100) {
-                $('.header').addClass('scrolled');
-            } else {
-                $('.header').removeClass('scrolled');
-            }
-        });
-
-        // Typing effect for subtitle
-        function typeWriter(text, element, speed = 50) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
+      };
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((ents) => {
+          ents.forEach(en => { if (en.isIntersecting) { reveal(en.target); io.unobserve(en.target); } });
+        }, { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+        els.forEach(e => io.observe(e));
+      }
+      requestAnimationFrame(sweep);
+      [120, 400, 900].forEach(t => setTimeout(sweep, t));
+      window.addEventListener('scroll', sweep, { passive: true });
+      window.addEventListener('resize', sweep);
+      window.addEventListener('load', sweep);
+    }
+    // If the tab ever goes inactive, frozen transitions can't be trusted — guarantee visibility.
+    document.addEventListener('visibilitychange', () => { if (document.hidden) showAll(); });
+  }
+  initNav() {
+    const links = [...this.root.querySelectorAll('.nav-link')];
+    const map = {}; links.forEach(l => map[l.dataset.nav] = l);
+    const secs = [...this.root.querySelectorAll('section[id]')];
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(en => {
+        if (en.isIntersecting) {
+          links.forEach(l => l.classList.remove('is-active'));
+          const a = map[en.target.id]; if (a) a.classList.add('is-active');
         }
-
-        // Initialize typing effect after page load
-        $(document).ready(function() {
-            setTimeout(function() {
-                const subtitle = document.querySelector('.header .subtitle');
-                if (subtitle) {
-                    typeWriter('Research Intern & Undergraduate Student', subtitle, 100);
-                }
-            }, 1500);
-        });
-
-        // Counter animation for GPA
-        function animateCounter(element, start, end, duration) {
-            let current = start;
-            const increment = (end - start) / (duration / 16);
-            
-            const timer = setInterval(function() {
-                current += increment;
-                if (current >= end) {
-                    current = end;
-                    clearInterval(timer);
-                }
-                element.textContent = 'GPA: ' + current.toFixed(2) + '/100';
-            }, 16);
-        }
-
-        // Trigger counter animation when in viewport
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const gpaElement = entry.target.querySelector('h5');
-                    if (gpaElement && !gpaElement.classList.contains('animated')) {
-                        gpaElement.classList.add('animated');
-                        animateCounter(gpaElement, 0, 88.36, 2000);
-                    }
-                }
-            });
-        });
-
-        const gpaCard = document.querySelector('.gpa-highlight');
-        if (gpaCard) {
-            observer.observe(gpaCard);
-        }
-
-        // Hover preview for awards in header
-        (function() {
-            const preview = document.getElementById('awardPreview');
-            if (!preview) return;
-            const imgEl = preview.querySelector('[data-role="img"]');
-            const titleEl = preview.querySelector('[data-role="title"]');
-            const descEl = preview.querySelector('[data-role="desc"]');
-            const panel = document.querySelector('.awards-panel');
-            const items = document.querySelectorAll('.award-list .award-item');
-            let hideTimer;
-
-            function showForItem(li) {
-                if (!li) return;
-                clearTimeout(hideTimer);
-                const img = li.getAttribute('data-preview-img');
-                if (img) {
-                    imgEl.src = img;
-                    const alt = (li.querySelector('.award-main')?.textContent || 'Award').trim();
-                    imgEl.alt = alt;
-                }
-                const main = (li.querySelector('.award-main')?.textContent || '').trim();
-                const chips = Array.from(li.querySelectorAll('.meta-chip')).map(c => c.textContent.trim()).join(' · ');
-                titleEl.textContent = main || (li.querySelector('.award-tag')?.textContent.trim() || 'Award');
-                if (chips) {
-                    descEl.textContent = chips;
-                    descEl.style.display = '';
-                } else {
-                    descEl.textContent = '';
-                    descEl.style.display = 'none';
-                }
-                preview.classList.add('is-visible');
-                preview.setAttribute('aria-hidden', 'false');
-            }
-
-            function scheduleHide() {
-                clearTimeout(hideTimer);
-                hideTimer = setTimeout(() => {
-                    preview.classList.remove('is-visible');
-                    preview.setAttribute('aria-hidden', 'true');
-                }, 200);
-            }
-
-            items.forEach(li => {
-                li.addEventListener('mouseenter', () => showForItem(li));
-                li.addEventListener('focusin', () => showForItem(li));
-            });
-            panel?.addEventListener('mouseleave', scheduleHide);
-            panel?.addEventListener('focusout', scheduleHide);
-        })();
-
-        // Add CSS for ripple effect
-        $('<style>')
-            .prop('type', 'text/css')
-            .html(`
-                .ripple {
-                    position: absolute;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.3);
-                    transform: scale(0);
-                    animation: ripple 0.6s linear;
-                    pointer-events: none;
-                }
-                
-                @keyframes ripple {
-                    to {
-                        transform: scale(4);
-                        opacity: 0;
-                    }
-                }
-            `)
-            .appendTo('head');
-
-        // Play/pause bio preview videos on hover (force preload + warm decode)
-document.addEventListener('DOMContentLoaded', function () {
-    const bio = document.querySelector('.about-bio');
-    if (!bio) return;
-
-    const vids = bio.querySelectorAll('.bio-hub video');
-
-    // 统一属性并强制加载
-    vids.forEach(v => {
-        v.muted = true;
-        v.setAttribute('muted', '');
-        v.setAttribute('playsinline', '');
-        v.setAttribute('webkit-playsinline', '');
-        v.setAttribute('preload', 'auto');
-        v.load(); // 触发网络请求
-
-        // 热身：解码首帧，悬停时即可秒播
-        const warm = () => {
-            const p = v.play();
-            if (p && typeof p.then === 'function') {
-                p.then(() => { try { v.pause(); } catch (e) {} }).catch(() => {});
-            } else {
-                try { v.play(); v.pause(); } catch (e) {}
-            }
-        };
-        if (v.readyState >= 2) {
-            warm();
-        } else {
-            v.addEventListener('loadeddata', warm, { once: true });
-        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    secs.forEach(s => io.observe(s));
+  }
+  initScrollLinks() {
+    this.root.querySelectorAll('[data-scroll]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const t = this.root.querySelector(el.dataset.scroll);
+        if (t) { this.scrollToEl(t); setTimeout(() => this.pulse(t), 420); }
+      });
     });
-
-    // 悬停播放/移出暂停
-    const playAll = () => vids.forEach(v => { v.play().catch(() => {}); });
-    const pauseAll = () => vids.forEach(v => { try { v.pause(); } catch (e) {} });
-
-    bio.addEventListener('mouseenter', playAll);
-    bio.addEventListener('mouseleave', pauseAll);
-});
-    </script>
+    this.root.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (id && id.length > 1) { const t = this.root.querySelector(id); if (t) { e.preventDefault(); this.scrollToEl(t); } }
+      });
+    });
+  }
+  initMap() {
+    const svg = this.root.querySelector('.rmap');
+    if (!svg) return;
+    const dK = this.root.querySelector('.rd-kicker'), dT = this.root.querySelector('.rd-text');
+    const defK = dK.textContent, defT = dT.textContent;
+    const NODE = {
+      tvpi: { v: 'IJCAI 2025 · Best Student Paper', t: 'Exploring Typographic Visual Prompts Injection Threats in Cross-Modality Generation Models' },
+      jailbreak: { v: 'NeurIPS 2025 · Datasets & Benchmarks', t: 'Jailbreak-AudioBench: Evaluating Jailbreak Threats for Large Audio Language Models' },
+      transfer: { v: 'ACM Multimedia 2025', t: 'Transfer Attack for Bad and Good: Adversarial Transferability across Multimodal LLMs' },
+      vla: { v: 'IROS 2025 · Workshop · bridges both threads', t: 'Manipulation Facing Threats: Physical Vulnerabilities in End-to-End Vision-Language-Action Models' },
+      humanoid: { v: 'NeurIPS 2026 · D&B · under review', t: 'HumanoidArena: Benchmarking Egocentric Hierarchical Whole-body Learning' },
+      dexterous: { v: 'ACM Multimedia 2026 · under review', t: 'Not All Actions Are Equal: Rethinking Conditioning for Dexterous World Model' }
+    };
+    const THEME = {
+      trust: { v: 'Thread A — Trustworthy multimodal AI', t: 'When do multimodal models break? Typographic injection, audio jailbreaks, and transferable adversarial attacks.' },
+      embodied: { v: 'Thread B — Embodied AI & world models', t: 'Can embodied agents be trusted to act? Whole-body benchmarks and dexterous world models — and where they fail.' }
+    };
+    const edges = [...svg.querySelectorAll('.edge')];
+    const nodes = [...svg.querySelectorAll('.nodeg')];
+    const clear = () => {
+      svg.classList.remove('has-active');
+      edges.forEach(e => e.classList.remove('is-active'));
+      nodes.forEach(n => n.classList.remove('is-active'));
+      dK.textContent = defK; dT.textContent = defT;
+    };
+    const activateTheme = (theme) => {
+      svg.classList.add('has-active');
+      nodes.forEach(n => {
+        const th = n.dataset.theme || '';
+        const ths = n.dataset.themes || '';
+        if (th === theme || ths.split(' ').indexOf(theme) >= 0) n.classList.add('is-active');
+      });
+      edges.forEach(e => { if (e.dataset.theme === theme) e.classList.add('is-active'); });
+      if (THEME[theme]) { dK.textContent = THEME[theme].v; dT.textContent = THEME[theme].t; }
+    };
+    const activateNode = (node) => {
+      svg.classList.add('has-active');
+      node.classList.add('is-active');
+      const id = node.dataset.node;
+      edges.forEach(e => {
+        if (e.dataset.to === id) {
+          e.classList.add('is-active');
+          const hub = svg.querySelector('.nodeg[data-hub="' + e.dataset.theme + '"]');
+          if (hub) hub.classList.add('is-active');
+        }
+      });
+      if (NODE[id]) { dK.textContent = NODE[id].v; dT.textContent = NODE[id].t; }
+    };
+    nodes.forEach(n => {
+      const enter = () => { clear(); if (n.dataset.hub) activateTheme(n.dataset.hub); else activateNode(n); };
+      n.addEventListener('mouseenter', enter);
+      n.addEventListener('focus', enter);
+      if (n.dataset.target) {
+        const go = () => { const t = this.root.querySelector('#' + n.dataset.target); if (t) { this.scrollToEl(t); setTimeout(() => this.pulse(t), 420); } };
+        n.addEventListener('click', go);
+        n.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+      }
+    });
+    svg.addEventListener('mouseleave', clear);
+    svg.addEventListener('blur', clear, true);
+  }
+  initFilter() {
+    const btns = [...this.root.querySelectorAll('[data-filter]')];
+    const cards = [...this.root.querySelectorAll('.pub')];
+    btns.forEach(b => b.addEventListener('click', () => {
+      const f = b.dataset.filter;
+      btns.forEach(x => x.classList.toggle('is-on', x === b));
+      cards.forEach(c => {
+        const themes = (c.dataset.themes || '').split(' ');
+        const show = f === 'all' || c.dataset.status === f || themes.indexOf(f) >= 0;
+        c.style.display = show ? '' : 'none';
+      });
+    }));
+  }
+  initLightbox() {
+    const lb = this.root.querySelector('#yw-lb');
+    if (!lb) return;
+    const media = lb.querySelector('.lb-media');
+    const capK = lb.querySelector('.lb-cap-k'), capT = lb.querySelector('.lb-cap-t');
+    const C = {
+      ijcai: { type: 'img', src: 'assets/cert-ijcai-bestpaper.jpg', k: 'International', t: 'Best Student Paper Award — IJCAI 2025 Workshop' },
+      birdclef: { type: 'img', src: 'assets/cert-birdclef.png', k: 'International', t: 'Bronze Medal — Kaggle BirdCLEF+ 2026' },
+      datawhale: { type: 'img', src: 'assets/cert-datawhale.jpg', k: 'National', t: 'First Prize — Datawhale AI Summer Camp' },
+      prov3d: { type: 'img', src: 'assets/cert-3d-provincial.jpg', k: 'Provincial', t: 'Second Prize — 3D Recognition (RoboCup China 2025)' },
+      '3dnat': { type: 'pdf', src: 'assets/cert-3d-national.pdf', k: 'National', t: 'First Prize — 3D Recognition (Finals)' },
+      industrial: { type: 'pdf', src: 'assets/cert-industrial-national.pdf', k: 'National', t: 'Third Prize — Industrial Metrology (Finals)' },
+      outstanding: { type: 'img', src: 'assets/cert-outstanding.jpg', k: 'University', t: 'Outstanding Student Award — BJUT 2022–23' },
+      innovation: { type: 'pdf', src: 'assets/cert-innovation.pdf', k: 'University', t: 'Innovation & Entrepreneurship Award — BJUT 2024–25' },
+      schol2324: { type: 'img', src: 'assets/cert-scholarship-2324.jpg', k: 'University', t: 'Academic Excellence Scholarship — BJUT 2023–24' },
+      schol2425: { type: 'pdf', src: 'assets/cert-scholarship-2425.pdf', k: 'University', t: 'Academic Excellence Scholarship — BJUT 2024–25' },
+      p_tvpi: { type: 'img', src: 'assets/pub-ijcai.png', k: 'Poster · IJCAI 2025', t: 'TVPI — Typographic Visual Prompts Injection' },
+      p_neurips: { type: 'img', src: 'assets/pub-neurips.png', k: 'Poster · NeurIPS 2025', t: 'Jailbreak-AudioBench' },
+      p_acm: { type: 'img', src: 'assets/pub-acm.png', k: 'Poster · ACM MM 2025', t: 'Transfer Attack for Bad and Good' }
+    };
+    const CERTS = ['ijcai', 'birdclef', 'datawhale', 'prov3d', '3dnat', 'industrial', 'outstanding', 'innovation', 'schol2324', 'schol2425'];
+    const POSTERS = ['p_tvpi', 'p_neurips', 'p_acm'];
+    let list = CERTS, cur = 0;
+    const render = (key) => {
+      const c = C[key]; if (!c) return;
+      media.innerHTML = '';
+      if (c.type === 'img') {
+        const im = document.createElement('img');
+        im.src = c.src; im.alt = c.t;
+        im.style.cssText = 'max-width:100%;max-height:78vh;object-fit:contain;border:1px solid rgba(255,255,255,.14);border-radius:4px;background:#fff';
+        media.appendChild(im);
+      } else {
+        const fr = document.createElement('iframe');
+        fr.src = c.src; fr.title = c.t;
+        fr.style.cssText = 'width:min(760px,90vw);height:78vh;border:none;border-radius:4px;background:#fff';
+        media.appendChild(fr);
+      }
+      capK.textContent = c.k; capT.textContent = c.t;
+    };
+    const open = (key) => {
+      list = POSTERS.indexOf(key) >= 0 ? POSTERS : CERTS;
+      cur = Math.max(0, list.indexOf(key));
+      render(list[cur]);
+      lb.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    };
+    const close = () => { lb.classList.remove('is-open'); media.innerHTML = ''; document.body.style.overflow = ''; };
+    const step = (d) => { cur = (cur + d + list.length) % list.length; render(list[cur]); };
+    this.root.querySelectorAll('[data-cert]').forEach(b => b.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); open(b.dataset.cert); }));
+    lb.querySelector('.lb-close').addEventListener('click', close);
+    lb.querySelector('.lb-prev').addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+    lb.querySelector('.lb-next').addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === 'ArrowRight') step(1);
+    });
+  }
+}
+</script>
 </body>
 </html>
